@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import Link from "next/link";
 import cn from "classnames";
@@ -6,6 +6,7 @@ import styles from "./Wallet.module.sass";
 import Icon from "../../Icon";
 import Image from "../../Image";
 import copy from "copy-to-clipboard";
+import CreateLendContext from "../../../context/LendContext";
 
 import { ConnectKitButton } from "connectkit";
 import { useAccount } from "wagmi";
@@ -18,11 +19,17 @@ type NotificationProps = {
 };
 
 const Notification = ({ className, wide }: NotificationProps) => {
+  const { currentAccount, setCurrentAccount } = useContext(CreateLendContext);
+
   const [visible, setVisible] = useState(false);
   const [connected, setConnected] = useState(false);
   const wallet: string = "hk980io73bz880hk980io73bz880";
 
   const { address } = useAccount();
+
+  useEffect(() => {
+    setCurrentAccount(address);
+  }, [address]);
 
   const copyAddress = () => {
     copy(address);

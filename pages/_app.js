@@ -1,5 +1,7 @@
 import "../styles/app.sass";
 
+import { CreateLendProvider } from "../context/LendContext";
+
 import { WagmiConfig, createClient, configureChains } from "wagmi";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
@@ -45,10 +47,12 @@ const client = createClient({
 
 export default function App({ Component, pageProps }) {
   return (
-    <WagmiConfig client={client}>
-      <ConnectKitProvider>
-        <Component {...pageProps} />
-      </ConnectKitProvider>
-    </WagmiConfig>
+    <CreateLendProvider>
+      <WagmiConfig client={client}>
+        <ConnectKitProvider>
+          <Component {...pageProps} />
+        </ConnectKitProvider>
+      </WagmiConfig>
+    </CreateLendProvider>
   );
 }

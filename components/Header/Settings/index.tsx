@@ -3,10 +3,10 @@ import OutsideClickHandler from "react-outside-click-handler";
 import Link from "next/link";
 import cn from "classnames";
 import styles from "./Settings.module.sass";
-// import NavLink from "../../NavLink";
+import NavLink from "../../NavLink";
 import Icon from "../../Icon";
 import Image from "../../Image";
-// import Theme from "../../Theme";
+import Theme from "../../Theme";
 
 type LinksType = {
   title: string;
@@ -54,29 +54,28 @@ const Settings = ({ items, className }: SettingsProps) => {
             </div>
           </Link>
           <div className={styles.list}>
-            {/* {items.map((x, index) => (
-                            <NavLink
-                                className={cn(styles.link, {
-                                    [styles.divider]: x.divider,
-                                })}
-                                activeClassName={styles.active}
-                                href={x.url}
-                                onClick={() => setVisible(!visible)}
-                                key={index}
-                            >
-                                <div className={styles.icon}>
-                                    <Icon name={x.icon} />
-                                </div>
-                                {x.title}
-                                <div className={styles.arrow}>
-                                    <Icon name="arrow-next" />
-                                </div>
-                            </NavLink>
-                        ))} */}
-            NavLink
+            {items.map((x, index) => (
+              <NavLink
+                className={cn(styles.link, {
+                  [styles.divider]: x.divider,
+                })}
+                activeClassName={styles.active}
+                href={x.url}
+                onClick={() => setVisible(!visible)}
+                key={index}
+              >
+                <div className={styles.icon}>
+                  <Icon name={x.icon} />
+                </div>
+                {x.title}
+                <div className={styles.arrow}>
+                  <Icon name='arrow-next' />
+                </div>
+              </NavLink>
+            ))}
           </div>
           <div className={styles.control}>
-            {/* <Theme className={styles.theme} /> */}
+            <Theme className={styles.theme} />
             <Link href='/welcome'>
               <div className={cn("button-sm", styles.button)}>
                 <span>Play game</span>
