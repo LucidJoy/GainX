@@ -10,9 +10,9 @@ import NavLink from "../NavLink";
 import Link from "next/link";
 import Notification from "./Notification";
 import Wallet from "./Wallet";
-// import Settings from "./Settings";
+import Settings from "./Settings";
 
-// import { NavigationList, settings } from "../../constants/navigation";
+import { NavigationList, settings } from "../../constants/navigation";
 import { notifications } from "../../mocks/notifications";
 
 type HeaderProps = {
@@ -60,7 +60,7 @@ const Header = ({ noAuth }: HeaderProps) => {
               >
                 {!noAuth && <Wallet wide />}
                 <nav className={styles.nav}>
-                  {/* {NavigationList.map((link, index) => (
+                  {NavigationList.map((link, index) => (
                     <NavLink
                       className={styles.link}
                       activeClassName={styles.active}
@@ -69,7 +69,7 @@ const Header = ({ noAuth }: HeaderProps) => {
                     >
                       {link.title}
                     </NavLink>
-                  ))} */}
+                  ))}
                   NavigationList
                 </nav>
               </div>
@@ -88,16 +88,16 @@ const Header = ({ noAuth }: HeaderProps) => {
               ></button>
 
               <nav className={styles.nav}>
-                {/* {NavigationList.map((link, index) => (
-                                    <NavLink
-                                        className={styles.link}
-                                        activeClassName={styles.active}
-                                        href={link.url}
-                                        key={index}
-                                    >
-                                        {link.title}
-                                    </NavLink>
-                                ))} */}
+                {NavigationList.map((link, index) => (
+                  <NavLink
+                    className={styles.link}
+                    activeClassName={styles.active}
+                    href={link.url}
+                    key={index}
+                  >
+                    {link.title}
+                  </NavLink>
+                ))}
                 NavigationList
               </nav>
             </div>
@@ -109,16 +109,15 @@ const Header = ({ noAuth }: HeaderProps) => {
                   items={notifications}
                 />
                 {!isTablet && <Wallet className={styles.wallet} />}
-                {/* <Settings className={styles.settings} items={settings} /> */}
+                <Settings className={styles.settings} items={settings} />
               </div>
             ) : (
-              //   <Link href='/getting-started'>
-              //     <p className={cn("button-stroke button-sm", styles.button)}>
-              //       <Icon name='game' className={styles.icon_game} />
-              //       Play now
-              //     </p>
-              //   </Link>
-              <></>
+              <Link href='/getting-started'>
+                <a className={cn("button-stroke button-sm", styles.button)}>
+                  <Icon name='game' className={styles.icon_game} />
+                  Play now
+                </a>
+              </Link>
             )}
             <Logo className={styles.logo} />
           </div>

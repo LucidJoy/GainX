@@ -26,6 +26,7 @@ const NavLink = ({
           [activeClassName]: router.pathname === href,
         })}
         onClick={onClick}
+        style={{ marginBottom: "10px" }}
       >
         {children}
       </div>

@@ -2,7 +2,11 @@
 
 .settings
     position: relative
-    height: 40px
+    display: flex
+    flex-direction: row
+    align-items: center
+    
+    // height: 40px
     +t
         position: inherit
     &.active
@@ -12,7 +16,7 @@
             transform: translateY(0)
 
 .head
-    position: relative
+    // position: relative
     width: 40px
     height: 40px
     background: none
