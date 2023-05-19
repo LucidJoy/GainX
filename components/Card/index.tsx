@@ -4,6 +4,9 @@ import styles from "./Card.module.sass";
 import cn from "classnames";
 import Image from "../Image";
 import Icon from "../Icon";
+import Modal from "../Modal";
+import Form from "../Form";
+import { useRouter } from "next/router";
 // import Favorite from "../Favorite";
 // import ModalSale from "../ModalSale";
 
@@ -18,6 +21,13 @@ type CardProps = {
 
 const Card = ({ className, item, bigPreview, saleItem }: CardProps) => {
   const [visibleModalSale, setVisibleModalSale] = useState<boolean>(false);
+  const [blink, setBlink] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  const handleListForm = () => {
+    setVisibleModalSale(true);
+  };
 
   return (
     <div className={cn(styles.card, className)}>
@@ -54,17 +64,39 @@ const Card = ({ className, item, bigPreview, saleItem }: CardProps) => {
         )}
         <div className={styles.details}>
           {/* <Favorite className={styles.favorite} /> */}
-          <Link href={`/character-details/${item.code}`}>
-            <p
+          {router.pathname === "/marketplace" ? (
+            <Link href={`/character-details/${item.code}`}>
+              <p
+                className={cn(
+                  "button-stroke",
+                  styles.button,
+                  styles.buttonDetails
+                )}
+              >
+                View detail
+              </p>
+            </Link>
+          ) : (
+            <button
               className={cn(
                 "button-stroke",
                 styles.button,
                 styles.buttonDetails
               )}
+              onClick={handleListForm}
             >
-              View detail
-            </p>
-          </Link>
+              <p>List</p>
+
+              <Modal
+                visible={visibleModalSale}
+                onClose={() => setVisibleModalSale(false)}
+                blink={blink}
+                form
+              >
+                <Form />
+              </Modal>
+            </button>
+          )}
           {saleItem && (
             <>
               <button

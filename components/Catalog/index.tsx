@@ -42,7 +42,7 @@ const Catalog = ({
       <div className={cn(styles.catalog, className)}>
         <div className={styles.body}>
           <div className={cn("container", styles.container)}>
-            {wishlist ? (
+            {/* {wishlist ? (
               <Wishlist value={activeIndex} />
             ) : (
               {
@@ -59,7 +59,8 @@ const Catalog = ({
                   />
                 ),
               }[activeIndex]
-            )}
+            )} */}
+            <List items={characters} crop={crop} saleItem={saleItem} />
           </div>
         </div>
       </div>
