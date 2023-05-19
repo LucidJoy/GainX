@@ -78,7 +78,7 @@ const Settings = ({ items, className }: SettingsProps) => {
             <Theme className={styles.theme} />
             <Link href='/welcome'>
               <div className={cn("button-sm", styles.button)}>
-                <span>Play game</span>
+                <span>List</span>
                 <Icon name='arrow-right' size='16' />
               </div>
             </Link>

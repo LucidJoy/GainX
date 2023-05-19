@@ -8,7 +8,7 @@ import TabDescription from "./TabDescription";
 import TabDetails from "./TabDetails";
 import History from "../../Details/History";
 // import ModalShareProfile from "../../ModalShareProfile";
-// import ModalPurchase from "../../ModalPurchase";
+import ModalPurchase from "../../ModalPurchase";
 
 import { history } from "../../../mocks/characterDetails";
 
@@ -53,12 +53,10 @@ const CardDetails = ({}: CardDetailsProps) => {
               >
                 Lend
               </button>
-              {/* <ModalPurchase
-                                visibleModal={visiblePurchase}
-                                setVisibleModal={() =>
-                                    setVisiblePurchase(false)
-                                }
-                            /> */}
+              <ModalPurchase
+                visibleModal={visiblePurchase}
+                setVisibleModal={() => setVisiblePurchase(false)}
+              />
               <button
                 className={styles.share}
                 onClick={() => setVisibleShare(true)}
