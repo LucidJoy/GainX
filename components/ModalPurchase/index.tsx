@@ -8,6 +8,7 @@ import { numberWithCommas } from "../../utils";
 
 import PreviewLoader from "../PreviewLoader";
 import Link from "next/link";
+import Checkbox from "../Checkbox";
 
 const item = {
   name: "Lumburr",
@@ -55,7 +56,7 @@ const Confirm = ({ setStateModal }: ModalType) => (
       className={cn("button", styles.confirm)}
       onClick={() => setStateModal("joy")}
     >
-      Confirm purchase
+      Next
     </button>
     <div className={styles.note}>
       Corrupti et voluptas. Ut ipsum <span>0,009 ETH</span> fugiat odio. Impedit
@@ -94,17 +95,73 @@ const Complete = ({}) => (
   </div>
 );
 
-const Joy = ({ setStateModal }: ModalType) => (
-  <div>
-    <p>hi</p>
-    <button
-      className={cn("button", styles.confirm)}
-      onClick={() => setStateModal("waiting")}
-    >
-      Confirm purchase
-    </button>
-  </div>
-);
+const Joy = ({ setStateModal }: ModalType) => {
+  const [value, setValue] = useState<boolean>(true);
+  const [terms, setTerms] = useState<boolean>(true);
+
+  return (
+    <div>
+      <div
+        style={{
+          display: "flex",
+          color: "white",
+          marginTop: "50px",
+          justifyContent: "space-between",
+          padding: "0px 10px",
+        }}
+      >
+        <p
+          style={{
+            fontSize: "16px",
+            marginRight: "10px",
+            fontWeight: 600,
+          }}
+        >
+          Do you want to insure your position?
+        </p>
+        <Checkbox
+          className={styles.item}
+          label=''
+          value={value}
+          setValue={setValue}
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          color: "white",
+          marginTop: "20px",
+          marginBottom: "20px",
+          justifyContent: "space-between",
+          padding: "0px 10px",
+        }}
+      >
+        <p
+          style={{
+            fontSize: "16px",
+            marginRight: "10px",
+            fontWeight: 600,
+          }}
+        >
+          Terms and Conditions
+        </p>
+        <Checkbox
+          className={styles.item}
+          label=''
+          value={terms}
+          setValue={setTerms}
+        />
+      </div>
+      <button
+        className={cn("button", styles.confirm)}
+        onClick={() => setStateModal("waiting")}
+        style={{ marginBottom: "0px" }}
+      >
+        Confirm purchase
+      </button>
+    </div>
+  );
+};
 
 const Error = ({
   setStateModal,
@@ -147,6 +204,7 @@ const ModalPurchase = ({
       visible={visibleModal}
       onClose={() => setVisibleModal(false)}
       blink={blink}
+      form={false}
     >
       <div className={styles.wrapper}>
         {
