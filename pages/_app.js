@@ -13,14 +13,12 @@ import {
   getDefaultClient,
 } from "connectkit";
 import {
-  goerli,
-  mainnet,
   filecoinHyperspace,
   polygonMumbai,
 } from "wagmi/chains";
 
 const { chains, provider } = configureChains(
-  [goerli, mainnet, filecoinHyperspace, polygonMumbai],
+  [filecoinHyperspace, polygonMumbai],
   [
     jsonRpcProvider({
       rpc: (chain) => ({
