@@ -12,14 +12,19 @@ import {
   ConnectKitButton,
   getDefaultClient,
 } from "connectkit";
-import { goerli, mainnet } from "wagmi/chains";
+import {
+  goerli,
+  mainnet,
+  filecoinHyperspace,
+  polygonMumbai,
+} from "wagmi/chains";
 
 const { chains, provider } = configureChains(
-  [goerli, mainnet],
+  [goerli, mainnet, filecoinHyperspace, polygonMumbai],
   [
     jsonRpcProvider({
       rpc: (chain) => ({
-        http: `https://sepolia.infura.io/v3/cb510addf6b7426782f1f092bf3897b0`,
+        http: `https://rpc.ankr.com/filecoin_testnet`,
       }),
     }),
   ]
