@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 
 const CreateLendContext = createContext({});
 
-const gainxContractAddress = "0x2849CA671e7029BD66Fa119d418a498713927bE7";
+const gainxContractAddress = "0x513028401543099405cb47bC00788a05d99E91F2";
 const gainxTokenContractAddress = "0xd4e6eC0202F1960dA896De13089FF0e4A07Db4E9";
 const redeemTokenContractAddress = "0xEC6C1001a15c48D4Ea2C7CD7C45a1c5b6aD120E9";
 
@@ -26,6 +26,7 @@ export const CreateLendProvider = ({ children }) => {
   const [myNfts, setMyNfts] = useState([]);
   const [lenderList, setLenderList] = useState([]);
   const [borrowerList, setBorrowerList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getAllListings = async () => {
     let results = [];
@@ -272,6 +273,229 @@ export const CreateLendProvider = ({ children }) => {
     )();
   }, []);
 
+
+  const listNftToMarketplace = async (_amount, _nftAddress, _nftId, _tenure, _apy) => {
+    // address _borrower, uint256 _amount, address _nftAddress, uint256 _nftId, uint256 _tenure, uint256 _apy
+    let _borrower;
+    try {
+      if (window.ethereum) {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const contract = new ethers.Contract(
+          gainxContractAddress,
+          gainxAbi,
+          signer
+        );
+
+        if (ethereum.isConnected()) {
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
+          console.log(accounts[0]);
+          _borrower = accounts[0];
+        }
+
+        _amount = utils.parseEther(_amount); // string
+        let listingPrice = utils.parseEther("0.5");
+
+        const txRes = await contract._initEscrow(_borrower, _amount, _nftAddress, _nftId, _tenure, _apy, {
+          value: listingPrice,
+          gasLimit: 500000000,
+        });
+
+        setIsLoading(true);
+        await txRes.wait(1);
+        setIsLoading(false);
+
+        console.log(txRes);
+        return true;
+      }
+    } catch (error) {
+      alert("Error while listing Offer!");
+    }
+  };
+
+  const acceptOffer = async (_escrowId, _isInsuared) => {
+    let txAmount;
+    try {
+      if (window.ethereum) {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const contract = new ethers.Contract(
+          gainxContractAddress,
+          gainxAbi,
+          signer
+        );
+
+        if (ethereum.isConnected()) {
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
+          console.log(accounts[0]);
+          // _borrower = accounts[0];
+        }
+
+        const res = await contract.idToEscrow(_escrowId); // object --> amount: {_hex: '0x01'}
+        txAmount = Number(res.amount._hex); // txAmount = 1 (Number)
+
+        if (_isInsuared == true || _isInsuared === 'true') {
+          txAmount += (0.1 * txAmount) // premium amount, 1 + (0.1*1) = 1.1 (Number)
+        }
+
+        txAmount = txAmount.toString(); // 1.1 --> '1.1' 
+        txAmount = utils.parseEther(txAmount); // '1.1' --> '1.1 * 10^18'
+
+        const txRes = await contract._initEscrow(_escrowId, _isInsuared, {
+          value: txAmount, // '1.1 * 10^18'
+          gasLimit: 500000000,
+        });
+
+        setIsLoading(true);
+        await txRes.wait(1);
+        setIsLoading(false);
+
+        console.log(txRes);
+        return true;
+      }
+    } catch (error) {
+      alert("Error while accepting Offer!");
+    }
+  };
+
+  const buyInsurance = async (_escrowId) => {
+    //msg.sender, currEscrow.amount, _escrowId
+    let txAmount;
+    let lender;
+    try {
+      if (window.ethereum) {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const contract = new ethers.Contract(
+          gainxContractAddress,
+          gainxAbi,
+          signer
+        );
+
+        if (ethereum.isConnected()) {
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
+          console.log(accounts[0]);
+          lender = accounts[0];
+        }
+
+        const res = await contract.idToEscrow(_escrowId); // object --> amount: {_hex: '0x01'}
+        txAmount = Number(res.amount._hex); // txAmount = 1 (Number)
+
+        txAmount = (0.1 * txAmount) // premium amount, (0.1*1) = 0.1 (Number)
+
+        txAmount = txAmount.toString(); // 0.1 --> '0.1' 
+        txAmount = utils.parseEther(txAmount); // '0.1' --> '0.1 * 10^18'
+
+        const txRes = await contract.buyInsurance(_escrowId, {
+          value: txAmount, // '0.1 * 10^18'
+          gasLimit: 500000000,
+        });
+
+        setIsLoading(true);
+        await txRes.wait(1);
+        setIsLoading(false);
+
+        console.log(txRes);
+        return true;
+      }
+    } catch (error) {
+      alert("Error while buying insurance!");
+    }
+  };
+
+  const repayAmount = async (_escrowId) => {
+    let borrower;
+    try {
+      if (window.ethereum) {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const contract = new ethers.Contract(
+          gainxContractAddress,
+          gainxAbi,
+          signer
+        );
+
+        if (ethereum.isConnected()) {
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
+          console.log(accounts[0]);
+          borrower = accounts[0];
+        }
+
+        const txRes = await contract._receiveRepayAmt(_escrowId, {
+          gasLimit: 500000000,
+        });
+
+        setIsLoading(true);
+        await txRes.wait(1);
+        setIsLoading(false);
+
+        console.log(txRes);
+        return true;
+      }
+    } catch (error) {
+      alert("Error while repaying amount!");
+    }
+  };
+
+  const reedemAmount = async (_escrowId) => {
+    let lender;
+    try {
+      if (window.ethereum) {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const contract = new ethers.Contract(
+          gainxContractAddress,
+          gainxAbi,
+          signer
+        );
+
+        if (ethereum.isConnected()) {
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
+          console.log(accounts[0]);
+          lender = accounts[0];
+        }
+
+        const txRes = await contract._receiveReedemAmt(_escrowId, {
+          gasLimit: 500000000,
+        });
+
+        setIsLoading(true);
+        await txRes.wait(1);
+        setIsLoading(false);
+
+        console.log(txRes);
+        return true;
+      }
+    } catch (error) {
+      alert("Error while redeeming amount!");
+    }
+  };
+
   const mintNFT = async () => {
     let receiver;
     try {
@@ -322,7 +546,13 @@ export const CreateLendProvider = ({ children }) => {
         getAllListings,
         myNfts,
         lenderList,
-        borrowerList
+        borrowerList,
+        isLoading,
+        listNftToMarketplace,
+        acceptOffer,
+        buyInsurance,
+        repayAmount,
+        reedemAmount
       }}
     >
       {children}
