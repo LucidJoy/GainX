@@ -93,7 +93,7 @@ const Card = ({ className, item, bigPreview, saleItem }: CardProps) => {
                 blink={blink}
                 form
               >
-                <Form />
+                <Form profile={undefined} />
               </Modal>
             </button>
           )}

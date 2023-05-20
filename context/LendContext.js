@@ -22,6 +22,19 @@ const redeemTokenAbi = redeemToken.abi;
 
 export const CreateLendProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState("");
+
+  const [wishlistForm, setWishlistForm] = useState({
+    tenure: "",
+    apy: "",
+  });
+  const [listClicked, setListClicked] = useState(false);
+  const [myNftForm, setMyNftForm] = useState({
+    nftAddress: "",
+    nftId: "",
+    chain: "",
+    tenure: "",
+    apy: "",
+  });
   const [allListings, setAllListings] = useState([]);
   const [myNfts, setMyNfts] = useState([]);
   const [lenderList, setLenderList] = useState([]);
@@ -541,6 +554,12 @@ export const CreateLendProvider = ({ children }) => {
       value={{
         currentAccount,
         setCurrentAccount,
+        wishlistForm,
+        setWishlistForm,
+        listClicked,
+        setListClicked,
+        myNftForm,
+        setMyNftForm,
         allListings,
         setAllListings,
         getAllListings,
