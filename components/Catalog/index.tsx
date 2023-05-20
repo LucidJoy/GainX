@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cn from "classnames";
 import styles from "./Catalog.module.sass";
 import List from "./List";
@@ -36,6 +36,8 @@ const Catalog = ({
   const [search, setSearch] = useState("");
 
   const handleSubmit = () => alert();
+
+  useEffect(() => console.log("🚀 ", characters), []);
 
   return (
     <>
