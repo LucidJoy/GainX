@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import Link from "next/link";
 import cn from "classnames";
@@ -7,6 +7,9 @@ import NavLink from "../../NavLink";
 import Icon from "../../Icon";
 import Image from "../../Image";
 import Theme from "../../Theme";
+import Modal from "../../Modal";
+import Form from "../../Form";
+import CreateLendContext from "../../../context/LendContext";
 
 type LinksType = {
   title: string;
@@ -22,6 +25,9 @@ type SettingsProps = {
 
 const Settings = ({ items, className }: SettingsProps) => {
   const [visible, setVisible] = useState(false);
+  const [blink, setBlink] = useState<boolean>(false);
+
+  const { listClicked, setListClicked } = useContext(CreateLendContext);
 
   return (
     <OutsideClickHandler onOutsideClick={() => setVisible(false)}>
@@ -76,12 +82,22 @@ const Settings = ({ items, className }: SettingsProps) => {
           </div>
           <div className={styles.control}>
             <Theme className={styles.theme} />
-            <Link href='/welcome'>
-              <div className={cn("button-sm", styles.button)}>
-                <span>List</span>
-                <Icon name='arrow-right' size='16' />
-              </div>
-            </Link>
+            <div
+              className={cn("button-sm", styles.button)}
+              onClick={() => setListClicked(!listClicked)}
+            >
+              <span>List</span>
+              <Icon name='arrow-right' size='16' />
+
+              <Modal
+                visible={listClicked}
+                onClose={() => setListClicked(false)}
+                blink={blink}
+                form
+              >
+                <Form profile />
+              </Modal>
+            </div>
           </div>
         </div>
       </div>

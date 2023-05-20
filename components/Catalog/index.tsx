@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import cn from "classnames";
 import styles from "./Catalog.module.sass";
 import List from "./List";
+import { useRouter } from "next/router";
 // import Filters from "./Filters";
 import Wishlist from "./Wishlist";
 
@@ -37,13 +38,16 @@ const Catalog = ({
 
   const handleSubmit = () => alert();
 
-  useEffect(() => console.log("🚀 ", characters), []);
+  const router = useRouter();
 
   return (
     <>
       <div className={cn(styles.catalog, className)}>
         <div className={styles.body}>
           <div className={cn("container", styles.container)}>
+            <p className={styles.heading}>
+              {router.pathname === "/marketplace" ? "Marketplace" : "My NFT's"}
+            </p>
             {/* {wishlist ? (
               <Wishlist value={activeIndex} />
             ) : (
