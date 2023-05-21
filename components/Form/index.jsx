@@ -13,7 +13,13 @@ const Form = ({ profile }) => {
     myNftForm,
     setMyNftForm,
     currentAccount,
+    listNftToMarketplace
   } = useContext(CreateLendContext);
+
+  const handleListing = async () => {
+    const response = await listNftToMarketplace(myNftForm);
+    console.log('Handle listing response: ', response);
+  }
 
   useEffect(() => console.log(myNftForm), [myNftForm]);
 
@@ -163,7 +169,11 @@ const Form = ({ profile }) => {
         <button
           className={cn("button")}
           style={{ width: "50%", textAlign: "center" }}
-          // onClick={() => setVisiblePurchase(true)}
+          onClick={async () => {
+            let response = await handleListing();
+            console.log('Response to listing: ', response);
+            console.log('List clicked')
+          }}
         >
           List
         </button>

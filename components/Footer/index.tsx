@@ -27,7 +27,7 @@ const Footer = ({ className }: FooterProps) => (
         </Link>
       </div>
       <div className={styles.foot}>
-        <div className={styles.copyright}>© 2022 UI8</div>
+        <div className={styles.copyright}>© 2023 GainX</div>
         <div className={styles.list}>
           {/* {LegalList.map((link, index) => (
                         <Link href={link.url} key={index}>
