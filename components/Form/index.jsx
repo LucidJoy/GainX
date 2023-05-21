@@ -106,7 +106,18 @@ const Form = ({ profile }) => {
           }}
         >
           <p className={styles.label}>Estimated Amount:</p>
-          <p className={styles.data}>20</p>
+          {profile ? (
+            <input
+              type='number'
+              id='estimatedAmount'
+              className={styles.dataInput}
+              onChange={(e) =>
+                setMyNftForm({ ...myNftForm, estimatedAmount: e.target.value })
+              }
+            />
+          ) : (
+            <p className={styles.data}>20</p>
+          )}
         </div>
 
         <div className={styles.input}>
