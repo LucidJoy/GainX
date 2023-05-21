@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 
 const CreateLendContext = createContext({});
 
-const gainxContractAddress = "0x513028401543099405cb47bC00788a05d99E91F2";
+const gainxContractAddress = "0xC416DECc4b7fD1F2Ad91F8565a9a32e0ED756f05";
 const gainxTokenContractAddress = "0xd4e6eC0202F1960dA896De13089FF0e4A07Db4E9";
 const redeemTokenContractAddress = "0xEC6C1001a15c48D4Ea2C7CD7C45a1c5b6aD120E9";
 
@@ -44,7 +44,6 @@ export const CreateLendProvider = ({ children }) => {
   const getAllListings = async () => {
     let results = [];
     let element;
-    try {
       if (window.ethereum) {
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
@@ -88,10 +87,7 @@ export const CreateLendProvider = ({ children }) => {
         console.log("All Listings👽: ", txRes);
         return true;
       }
-    } catch (error) {
-      alert("Fetch listing Err: ", error);
-      console.log("Fetch listing Err: ", error);
-    }
+
   };
 
   useEffect(() => {
