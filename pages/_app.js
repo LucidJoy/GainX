@@ -12,13 +12,10 @@ import {
   ConnectKitButton,
   getDefaultClient,
 } from "connectkit";
-import {
-  filecoinHyperspace,
-  polygonMumbai,
-} from "wagmi/chains";
+import { filecoinHyperspace, polygonMumbai } from "wagmi/chains";
 
 const { chains, provider } = configureChains(
-  [filecoinHyperspace, polygonMumbai],
+  [filecoinHyperspace],
   [
     jsonRpcProvider({
       rpc: (chain) => ({
