@@ -13,6 +13,7 @@ export const CreateLendProvider = ({ children }) => {
     nftAddress: "",
     nftId: "",
     chain: "",
+    estimatedAmount: "",
     tenure: "",
     apy: "",
   });

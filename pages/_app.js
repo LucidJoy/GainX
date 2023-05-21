@@ -20,7 +20,7 @@ import {
 } from "wagmi/chains";
 
 const { chains, provider } = configureChains(
-  [goerli, mainnet, filecoinHyperspace, polygonMumbai],
+  [filecoinHyperspace],
   [
     jsonRpcProvider({
       rpc: (chain) => ({
