@@ -12,12 +12,7 @@ import {
   ConnectKitButton,
   getDefaultClient,
 } from "connectkit";
-import {
-  goerli,
-  mainnet,
-  filecoinHyperspace,
-  polygonMumbai,
-} from "wagmi/chains";
+import { filecoinHyperspace, polygonMumbai } from "wagmi/chains";
 
 const { chains, provider } = configureChains(
   [filecoinHyperspace],
