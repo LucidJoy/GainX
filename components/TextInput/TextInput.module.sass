@@ -1,0 +1,84 @@
+@import ../../styles/helpers
+
+.label
+    margin-bottom: 12px
+    font-size: 12px
+    line-height: 1
+    font-weight: 700
+    text-transform: uppercase
+    color: $n5
+
+.wrap
+    position: relative
+
+.input
+    width: 100%
+    height: 48px
+    padding: 0 14px
+    border-radius: 12px
+    border: 2px solid $n6
+    background: $n8
+    // +poppins
+    +caption-bold-1
+    color: $n2
+    transition: border-color .2s
+    +dark
+        border-color: $n3
+        background: none
+        color: $n8
+    +placeholder
+        color: $n4
+    &:focus
+        border-color: $n4
+
+.toggle,
+.preview
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 48px
+
+.toggle
+    svg
+        fill: $n5
+        transition: fill .2s
+    &:hover
+        svg
+            fill: $n4
+    &.active
+        svg
+            fill: $n1
+    +dark
+        svg
+            fill: $n4
+        &:hover
+            svg
+                fill: $n5
+        &.active
+            svg
+                fill: $n8
+
+.preview
+    display: flex
+    justify-content: center
+    align-items: center
+    svg
+        fill: $n4
+
+.empty
+    .input
+        height: 26px
+        border: none
+
+.view,
+.icon
+    .input
+        padding-right: 48px
+
+.note
+    margin-top: 12px
+    font-size: 10px
+    line-height: (16/10)
+    font-weight: 500
+    color: $n4

@@ -1,0 +1,75 @@
+@import ../../../styles/helpers
+
+.wrap
+    padding-bottom: 4px
+
+.table
+    display: table
+    width: 100%
+
+.row
+    display: table-row
+    color: $n2
+    transition: background .2s
+    &:first-child
+        .col
+            padding-top: 20px
+            border-bottom: 1px solid $n7
+            +caption-bold-2
+            color: $n3
+            +dark
+                border-color: $n2
+                color: $n8
+    &:not(:first-child):not(:last-child)
+        .col
+            border-bottom: 1px solid $n6
+            +dark
+                border-color: $n2
+    &:not(:first-child)
+        &:hover
+            background: $n7
+            +dark
+                background: $n2
+
+.col
+    display: table-cell
+    padding: 16px
+    +m
+        padding: 16px 8px
+    +dark
+        color: $n8
+    &:first-child
+        padding-left: 32px
+    &:last-child
+        padding-right: 32px
+    &:nth-child(3),
+    &:nth-child(4),
+    &:last-child
+        text-align: right
+    &:nth-child(2)
+        +t
+            display: none
+    &:not(:first-child):not(:last-child)
+        +m
+            display: none
+
+.currency
+    display: flex
+    +m
+        position: relative
+        bottom: -3px
+
+.icon
+    flex-shrink: 0
+    width: 32px
+    margin-right: 20px
+    +m
+        margin-right: 12px
+    img
+        width: 100%
+
+.info
+    font-weight: 500
+
+.text
+    color: $n4
