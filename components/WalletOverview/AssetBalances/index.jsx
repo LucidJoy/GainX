@@ -1,22 +1,32 @@
 // ARV
-import React from "react";
+import React, {useContext} from "react";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import styles from "./AssetBalances.module.sass";
 
-const items = [
-  {
-    escrowId: 0,
-    apy: "7.46",
-    amount: "50.5678",
-    tenure: "30",
-    insured: "True",
-  }
-];
+import CreateLendContext from "../../../context/LendContext"
+
+// const items = [
+//   {
+//     escrowId: 0,
+//     apy: "7.46",
+//     amount: "50.5678",
+//     tenure: "30",
+//     insured: "True",
+//   }
+// ];
 
 // overview page items
 
 const AssetBalances = () => {
+  const {
+    listNftToMarketplace,
+    borrowerList,
+    lenderList
+  } = useContext(CreateLendContext);
+
+  let items = [...borrowerList, ...lenderList]
+
   return (
     <div className={styles.wrap}>
       <div className={styles.table}>
@@ -25,7 +35,7 @@ const AssetBalances = () => {
           <div className={styles.col}>APY</div>
           <div className={styles.col}>Amount</div>
           <div className={styles.col}>Tenure</div>
-          <div className={styles.col}>Insuared</div>
+          <div className={styles.col}>Insured</div>
         </div>
         {items.map((x, index) => (
           <div
@@ -55,7 +65,7 @@ const AssetBalances = () => {
               <div className={styles.info}>{`${x.tenure} days`}</div>
             </div>
             <div className={styles.col}>
-              <div className={styles.info}>{x.insured}</div>
+              <div className={styles.info}>{`${x.isInsuared}`}</div>
             </div>
           </div>
         ))}

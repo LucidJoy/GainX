@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import cn from "classnames";
 import styles from "./Withdraw.module.sass";
 import Icon from "../Icon";
@@ -6,12 +6,20 @@ import TextInput from "../TextInput";
 // import Checkbox from "../Checkbox";
 import Successfully from "./Successfully";
 
+import CreateLendContext from "../../context/LendContext";
+
 const Withdraw = () => {
+  const {
+    buyInsurance
+  } = useContext(CreateLendContext);
+
   const [save, setSave] = useState(true);
   const [visibleWithdraw, setVisibleWithdraw] = useState(true);
   const [visibleSuccessfully, setVisibleSuccessfully] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    const response = await buyInsurance();
+    console.log('Response to buy insurance: ', response);
     setVisibleWithdraw(false);
     setVisibleSuccessfully(true);
   };

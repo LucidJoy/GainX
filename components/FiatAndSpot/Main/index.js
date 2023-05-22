@@ -1,7 +1,9 @@
 // ARV
-import React from "react";
+import React, {useContext} from "react";
 import cn from "classnames";
 import styles from "./Main.module.sass";
+
+import CreateLendContext from "../../../context/LendContext"
 
 const items = [
   {
@@ -31,6 +33,9 @@ const items = [
 ];
 
 const Main = () => {
+  const {
+    borrowerList
+  } = useContext(CreateLendContext);
   return (
     <div className={styles.main}>
       <h4 className={cn("h4", styles.title)}>Borrowings</h4>
@@ -39,7 +44,7 @@ const Main = () => {
           <div className={styles.item} key={index}>
             <div className={styles.info}>{x.title}</div>
             <div className={styles.line}>
-              <div className={styles.currency}>{x.content}</div>
+              {x.title == 'Total Borrowings' ? (<div className={styles.currency}>{borrowerList.length}</div>) : (<div className={styles.currency}>{x.content}</div>)}
               <div className={cn("category-green", styles.category)}>
                 {x.currency}
               </div>

@@ -10,14 +10,14 @@ const items = [
     content: "Completed",
     color: "#58BD7D",
   },
-  {
-    title: "Transaction ID",
-    content: "0msx836930...87r398",
-  },
-  {
-    title: "Address",
-    content: "0xf8aaa2b1842e796191e736434sda....479",
-  },
+  // {
+  //   title: "Transaction ID",
+  //   content: "0msx836930...87r398",
+  // },
+  // {
+  //   title: "Address",
+  //   content: "0xC416...756f05",
+  // },
 ];
 
 const Successfully = () => {
@@ -33,7 +33,7 @@ const Successfully = () => {
           </span>
         </div>
         <div className={styles.info}>
-          You successfully a withdrawal <span>100.00 USDT</span> from Bitcloud
+          Your insurance was successfull !
         </div>
         <div className={styles.list}>
           {items.map((x, index) => (
@@ -45,7 +45,7 @@ const Successfully = () => {
             </div>
           ))}
         </div>
-        <button
+        {/* <button
           className={cn("button", styles.button)}
           onClick={() => {
             window.location.reload();
@@ -53,7 +53,7 @@ const Successfully = () => {
           }}
         >
           Wallet
-        </button>
+        </button> */}
       </div>
     </>
   );

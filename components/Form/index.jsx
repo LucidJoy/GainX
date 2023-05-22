@@ -13,7 +13,8 @@ const Form = ({ profile }) => {
     myNftForm,
     setMyNftForm,
     currentAccount,
-    listNftToMarketplace
+    listNftToMarketplace,
+    estAmt
   } = useContext(CreateLendContext);
 
   const handleListing = async () => {
@@ -112,15 +113,16 @@ const Form = ({ profile }) => {
           }}
         >
           <p className={styles.label}>Estimated Amount:</p>
-          {profile ? (
-            <input
+          {/* <input
               type='number'
               id='estimatedAmount'
               className={styles.dataInput}
               onChange={(e) =>
                 setMyNftForm({ ...myNftForm, estimatedAmount: e.target.value })
               }
-            />
+            /> */}
+          {profile ? (
+            <p>{myNftForm.tenure == '' ? '0' : estAmt}</p>
           ) : (
             <p className={styles.data}>20</p>
           )}
