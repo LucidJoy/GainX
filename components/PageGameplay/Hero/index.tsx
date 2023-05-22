@@ -48,7 +48,7 @@ const Hero = ({}: HeroProps) => {
           ))}
         </div>
         <div className={styles.foot}>
-          <Mouse className={styles.mouse} title='Explore the game' />
+          {/* <Mouse className={styles.mouse} title='Explore the game' /> */}
           <Range
             className={styles.slider}
             thumbClassName={styles.thumb}
