@@ -2,12 +2,13 @@ import React from "react";
 
 import Page from "../components/Page";
 import WalletMargin from "../components/WalletMargin";
+import Layout from "../components/Layout";
 
 const Lendings = () => {
   return (
-    <Page>
+    <Layout>
       <WalletMargin />
-    </Page>
+    </Layout>
   );
 };
 
