@@ -1,0 +1,60 @@
+@import ../../../styles/helpers
+
+.main
+    padding: 32px
+    background: $n8
+    border-radius: 4px
+    color: white
+    +dark
+        background: #17181B
+
+.title
+    margin-bottom: 20px
+
+.list
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    +m
+        display: block
+
+.item
+    &.flex
+        display: flex
+        align-items: center
+        .number
+            color: $p4
+    &:not(:last-child)
+        +m
+            margin-bottom: 16px
+
+.info
+    margin-bottom: 4px
+    font-weight: 500
+    color: $n3
+    +dark
+        color: $n4
+
+.currency
+    display: flex
+    align-items: center
+
+.number
+    +body-bold-1
+    +t
+        font-size: 20px
+    +m
+        font-size: 24px
+
+.category
+    margin-left: 8px
+    color: #17181B
+
+.price,
+.stage
+    +body-2
+    color: $n4
+
+.chart
+    margin-right: 24px
+

@@ -1,0 +1,63 @@
+@import ../../styles/helpers
+
+.title
+    margin-bottom: 32px
+    padding-right: 56px
+    +m
+        font-size: 24px
+        line-height: 32px
+        font-weight: 600
+    svg
+        position: relative
+        top: -2px
+        margin-right: 16px
+        +m
+            top: 0
+        +dark
+            fill: $n8
+
+.field,
+.wrap,
+.box,
+.checkbox
+    &:not(:last-child)
+        margin-bottom: 32px
+
+.wrap
+    display: flex
+    padding: 20px 24px
+    border-radius: 4px
+    background: $n7
+    +dark
+        background: $n3
+
+.category
+    margin-right: auto
+    font-weight: 500
+    color: $n3
+    +dark
+        color: $n7
+
+.details
+    text-align: right
+
+.currency
+    +body-bold-2
+
+.price
+    color: $n4
+
+.box
+    position: relative
+    .button
+        position: absolute
+        top: 36px
+        right: 16px
+        height: 24px
+        padding: 0 16px
+        border-radius: 12px
+
+.withdraw > .button
+    width: 100%
+
+

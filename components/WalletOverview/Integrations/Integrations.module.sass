@@ -1,0 +1,115 @@
+@import ../../../styles/helpers
+
+.list
+    display: flex
+    flex-wrap: wrap
+    margin: -2px
+    background: $n7
+    +dark
+        background: $n1
+
+.item
+    display: flex
+    flex-direction: column
+    flex: 0 0 calc(50% - 4px)
+    width: calc(50% - 4px)
+    margin: 2px
+    border-radius: 4px
+    background: $n8
+    +m
+        flex: 0 0 calc(100% - 4px)
+        width: calc(100% - 4px)
+    +dark
+        background: #18191D
+
+.head
+    display: flex
+    align-items: flex-start
+    // min-height: 89px
+    flex-grow: 1
+    padding: 20px 32px
+    border-bottom: 1px solid #F1F2F4
+    +dark
+        border-color: $n2
+
+.title
+    position: relative
+    margin-right: auto
+    padding-left: 20px
+    font-weight: 500
+    color: $n3
+    +dark
+        color: $n7
+    &:before
+        content: ""
+        position: absolute
+        top: 6px
+        left: 0
+        width: 12px
+        height: 12px
+        border-radius: 4px
+        border: 2px solid $n4
+
+.content
+    max-width: 336px
+    margin-left: 24px
+    text-align: right
+    +caption-2
+    color: $n4
+
+.body
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    padding: 20px 32px
+
+.radio
+    position: relative
+    user-select: none 
+    cursor: pointer
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    &:not(:last-child)
+        margin-right: 24px
+
+.input
+    position: absolute
+    top: 0
+    left: 0
+    opacity: 0 
+    &:checked + .inner
+        .line
+            color: $p4
+            svg
+                fill: $p4
+        .text
+            span
+                &:first-child
+                    display: inline
+                &:nth-child(2)
+                    display: none
+
+.line
+    display: flex
+    align-items: center
+    +button-2
+    color: $n4
+    transition: color .2s
+    svg
+        margin-right: 12px
+        transition: fill .2s
+        +dark
+            fill: $n4
+    &:hover
+        color: $n2
+        +dark
+            color: $n8
+            svg
+                fill: $n8
+   
+.text
+    span
+        &:first-child
+            display: none
+
+.button
+    height: 32px

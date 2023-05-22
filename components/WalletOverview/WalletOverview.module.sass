@@ -1,0 +1,115 @@
+@import ../../styles/helpers
+
+.top
+    padding: 32px
+    background: $n8
+    border-radius: 4px
+    color: #fff
+    +dark
+        background: #18191D
+
+.line
+    display: flex
+    align-items: center
+    margin-bottom: 20px
+    +m
+        flex-wrap: wrap
+
+.title
+    margin-right: auto
+    +m
+        flex: 0 0 100%
+        margin: 0 0 20px
+
+.wrap
+    display: flex
+    align-items: center
+    +m
+        flex-wrap: wrap
+
+.form
+    position: relative
+    flex-shrink: 0
+    width: 256px
+    margin-right: 8px
+    +d
+        width: 220px
+    +m
+        width: 100%
+        margin: 0 0 16px
+
+.input
+    width: 100%
+    height: 40px
+    padding: 0 40px 0 14px
+    border-radius: 20px
+    background: none
+    border: 2px solid $n6
+    // +poppins
+    +caption-2
+    color: $n2
+    transition: border-color .2s
+    +dark
+        border-color: $n3
+        color: $n8
+    +placeholder
+        color: $n4
+    &:focus
+        border-color: $n4
+
+.result
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 40px
+    svg
+        fill: $n4
+        transition: fill .2s
+    &:hover
+        svg
+            fill: $p1
+
+.dropdown
+    margin-right: 8px
+
+.dropdownHead
+    height: 40px
+    line-height: 40px
+    background: $n6
+    border-radius: 20px
+    +dark
+        background: $n3
+
+.info
+    margin-bottom: 4px
+    font-weight: 500
+
+.currency
+    display: flex
+    align-items: center
+
+.number
+    +body-bold-1
+
+.category
+    margin-left: 8px
+
+.price
+    +body-2
+    color: $n4
+
+.head
+    padding: 20px 32px 8px
+    +caption-2
+    font-weight: 500
+    color: $n4
+    +m
+        padding: 20px 0 8px
+
+.body
+    background: $n8
+    border-radius: 4px
+    overflow: hidden
+    +dark
+        background: #18191D

@@ -1,0 +1,78 @@
+@import ../../../styles/helpers
+
+.list
+    display: flex
+    flex-wrap: wrap
+    margin: -2px
+    background: $n7
+    +dark
+        background: $n1
+
+.item
+    flex: 0 0 calc(50% - 4px)
+    width: calc(50% - 4px)
+    margin: 2px
+    border-radius: 4px
+    background: $n8
+    +m
+        flex: 0 0 calc(100% - 4px)
+        width: calc(100% - 4px)
+    +dark
+        background: #18191D
+    &.soon
+        +m
+            display: none
+
+.head
+    display: flex
+    align-items: flex-start
+    min-height: 89px
+    padding: 20px 32px
+    border-bottom: 1px solid #F1F2F4
+    +dark
+        border-color: $n2
+
+.title
+    display: flex
+    align-items: center
+    margin-right: auto
+    font-weight: 500
+    color: $n3
+    +dark
+        color: $n7
+
+.details
+    text-align: right
+
+.currency
+    +body-bold-2
+
+.price
+    color: $n4
+
+.bg
+    flex-shrink: 0
+    width: 12px
+    height: 12px
+    margin-right: 8px
+    border-radius: 4px
+
+.body
+    padding: 20px 32px
+    .soon
+        display: inline-block
+        padding: 8px 16px
+        box-shadow: inset 0 0 0 2px $n6
+        border-radius: 16px
+        +button-2
+        color: $p4
+        +dark
+            box-shadow: inset 0 0 0 2px $n3
+
+.btns
+    display: flex
+
+.button
+    height: 32px
+    &:not(:last-child)
+        margin-right: 8px
