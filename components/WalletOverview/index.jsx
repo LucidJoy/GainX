@@ -56,19 +56,20 @@ const WalletOverview = () => {
               setValue={setCurrency}
               options={optionsCurrency}
             /> */}
-            <button
+            <div
               style={{
                 background: "#E45F35",
                 color: "#23262F",
-                fontSize: "14px",
+                fontSize: "16px",
                 padding: "0 16px",
                 height: "40px",
                 borderRadius: "20px",
-                fontWeight: 600,
+                fontWeight: 700,
+                paddingTop: "7px"
               }}
             >
               Score: 1124
-            </button>
+            </div>
           </div>
         </div>
         <div className={styles.details}>

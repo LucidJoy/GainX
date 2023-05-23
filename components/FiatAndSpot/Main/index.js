@@ -25,7 +25,7 @@ const items = [
     price: "",
   },
   {
-    title: "Average APY",
+    title: "Average APR",
     content: "15.7429",
     currency: "%",
     price: "",

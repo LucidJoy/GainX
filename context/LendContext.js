@@ -52,6 +52,16 @@ export const CreateLendProvider = ({ children }) => {
   const [offerId, setOfferId] = useState("");
   let [estAmt, setEstAmt] = useState("");
 
+  const demoItem = {
+    escrowId: "0",
+    name: "Shiny APE",
+    crypto: "40.7826",
+    price: 183.5217,
+    location: "Bored Ape Yacht Club",
+    tenure: "4",
+    isInsured: false
+  };
+
   let offers = ["55.6064", "50.2044", "40.7826", "21.9151"];
   useEffect(() => {
     if (Number(myNftForm.tenure) == 1) {
@@ -400,8 +410,21 @@ export const CreateLendProvider = ({ children }) => {
     }
   };
 
-  const acceptOffer = async (_escrowId, _isInsuared) => {
+  const acceptOffer = async () => {
+    /*
+    const demoItem = {
+      escrowId: "0",
+      name: "Shiny APE",
+      crypto: "40.7826",
+      price: 183.5217,
+      location: "Bored Ape Yacht Club",
+      tenure: "4",
+      isInsured: false
+    };
+    */
     let txAmount;
+    let _isInsuared = demoItem.isInsured;
+    let _escrowId = demoItem.escrowId;
     try {
       if (window.ethereum) {
         const web3Modal = new Web3Modal();
@@ -430,11 +453,12 @@ export const CreateLendProvider = ({ children }) => {
           txAmount += 0.1 * txAmount; // premium amount, 1 + (0.1*1) = 1.1 (Number)
         }
 
+        let txAmt = txAmount.toString(); // 1.1 --> '1.1'
         txAmount = txAmount.toString(); // 1.1 --> '1.1'
         txAmount = utils.parseEther(txAmount); // '1.1' --> '1.1 * 10^18'
 
-        const txRes = await contract._initEscrow(_escrowId, _isInsuared, {
-          value: txAmount, // '1.1 * 10^18'
+        const txRes = await contract._acceptOffer(_escrowId, _isInsuared, {
+          value: txAmt, // '1.1 * 10^18'
           gasLimit: 500000000,
         });
 
@@ -446,7 +470,8 @@ export const CreateLendProvider = ({ children }) => {
         return true;
       }
     } catch (error) {
-      alert("Error while accepting Offer!");
+      // alert("Error while accepting Offer!");
+      console.log("Accept offer", error);
     }
   };
 
