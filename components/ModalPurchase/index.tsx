@@ -123,16 +123,6 @@ const Joy = ({ setStateModal }: ModalType) => {
     else setStateModal("error");
   };
 
-  const { acceptOffer } = useContext(CreateLendContext);
-
-  const handleAcceptOffer = async () => {
-    const response = await acceptOffer();
-    console.log("Accept offer res💵: ", response);
-
-    if (response) setStateModal("complete");
-    else setStateModal("error");
-  };
-
   return (
     <div>
       <div
