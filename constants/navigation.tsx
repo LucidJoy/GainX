@@ -34,8 +34,8 @@ const NavigationList: NavigationType[] = [
 
 const NavigationListFooter: NavigationType[] = [
   {
-    title: "Gameplay",
-    url: "/gameplay",
+    title: "Home",
+    url: "/",
   },
 
   {

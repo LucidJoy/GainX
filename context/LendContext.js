@@ -156,7 +156,7 @@ export const CreateLendProvider = ({ children }) => {
   const trainModelApi = async () => {
     const res = await axios({
       method: "get",
-      url: `https://nft-api-ou54.onrender.com//train_model/contract_address=${myNftForm.nftAddress}`,
+      url: `https://nft-api-ou54.onrender.com/train_model/contract_address=${myNftForm.nftAddress}`,
       withCredentials: false,
       headers: {
         "Access-Control-Allow-Origin": "*",
