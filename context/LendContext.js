@@ -3,7 +3,7 @@ import { ethers, utils } from "ethers";
 import Web3Modal from "web3modal";
 const Moralis = require("moralis").default;
 const { EvmChain } = require("@moralisweb3/common-evm-utils");
-import { Database } from "@tableland/sdk";
+// import { Database } from "@tableland/sdk";
 import axios from "axios";
 
 // import { Database } from "@tableland/sdk";
@@ -17,7 +17,8 @@ import { useRouter } from "next/router";
 const CreateLendContext = createContext({});
 
 // const gainxContractAddress = "0x513028401543099405cb47bC00788a05d99E91F2";
-const gainxContractAddress = "0x9c88f79eA319B9770125E689F9aeDCE1C0992224";
+// const gainxContractAddress = "0x9c88f79eA319B9770125E689F9aeDCE1C0992224"; // 0x7619EcEc5bf84Da954a9A5d52caa4B8dB6313c84 (new)
+const gainxContractAddress = "0x7619EcEc5bf84Da954a9A5d52caa4B8dB6313c84"; // 0x7619EcEc5bf84Da954a9A5d52caa4B8dB6313c84 (new)
 const gainxTokenContractAddress = "0xd4e6eC0202F1960dA896De13089FF0e4A07Db4E9";
 const redeemTokenContractAddress = "0xEC6C1001a15c48D4Ea2C7CD7C45a1c5b6aD120E9";
 
@@ -26,21 +27,6 @@ const gainxTokenAbi = gainxToken.abi;
 const redeemTokenAbi = redeemToken.abi;
 let collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d";
 let months = 3;
-
-async function connectDatabase(signer) {
-  const db = new Database({ signer });
-  return db;
-}
-
-async function handleConnect() {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  await provider.send("eth_requestAccounts", []);
-  const signer = provider.getSigner();
-  setSigner(signer);
-  const database = await connectDatabase(signer);
-  setDatabase(database);
-  console.log(database);
-}
 
 export const CreateLendProvider = ({ children }) => {
   const route = useRouter();
@@ -85,44 +71,44 @@ export const CreateLendProvider = ({ children }) => {
     value: "",
   });
 
-  async function maketable() {
-    const prefix = "demo_table";
-    const { meta: create } = await database
-      .prepare(`CREATE TABLE ${prefix}(id text, data text);`)
-      .run();
-    const { name } = create.txn;
-    setTablename(name);
-    console.log("table", name);
-  }
+  // async function maketable() {
+  //   const prefix = "demo_table";
+  //   const { meta: create } = await database
+  //     .prepare(`CREATE TABLE ${prefix}(id text, data text);`)
+  //     .run();
+  //   const { name } = create.txn;
+  //   setTablename(name);
+  //   console.log("table", name);
+  // }
 
-  async function writetable() {
-    const { meta: insert } = await database
-      .prepare(`INSERT INTO ${tablename} (id, data) VALUES (?, ?);`)
-      .bind(parseInt(tabledata?.key), tabledata?.value.toString())
-      .run();
+  // async function writetable() {
+  //   const { meta: insert } = await database
+  //     .prepare(`INSERT INTO ${tablename} (id, data) VALUES (?, ?);`)
+  //     .bind(parseInt(tabledata?.key), tabledata?.value.toString())
+  //     .run();
 
-    await insert.txn.wait();
+  //   await insert.txn.wait();
 
-    const { results } = await database
-      .prepare(`SELECT * FROM ${tablename};`)
-      .all();
-    console.log(results);
-  }
+  //   const { results } = await database
+  //     .prepare(`SELECT * FROM ${tablename};`)
+  //     .all();
+  //   console.log(results);
+  // }
 
-  async function connectDatabase(signer) {
-    const db = new Database({ signer });
-    return db;
-  }
+  // async function connectDatabase(signer) {
+  //   const db = new Database({ signer });
+  //   return db;
+  // }
 
-  async function handleConnect() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    const signer = provider.getSigner();
-    setSigner(signer);
-    const database = await connectDatabase(signer);
-    setDatabase(database);
-    console.log(database);
-  }
+  // async function handleConnect() {
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //   await provider.send("eth_requestAccounts", []);
+  //   const signer = provider.getSigner();
+  //   setSigner(signer);
+  //   const database = await connectDatabase(signer);
+  //   setDatabase(database);
+  //   console.log(database);
+  // }
 
   const [offerId, setOfferId] = useState("");
   let [estAmt, setEstAmt] = useState("");
@@ -446,9 +432,9 @@ export const CreateLendProvider = ({ children }) => {
         apy,
       },
     });
-    handleConnect();
-    maketable();
-    writetable();
+    // handleConnect();
+    // maketable();
+    // writetable();
 
     try {
       if (window.ethereum) {
@@ -502,20 +488,18 @@ export const CreateLendProvider = ({ children }) => {
   };
 
   const acceptOffer = async ({ escrowId }) => {
-    const demoItem = {
-      escrowId: "0",
-      name: "Shiny APE",
-      crypto: "40.7826",
-      price: 183.5217,
-      location: "Bored Ape Yacht Club",
-      tenure: "4",
-      isInsured: false,
-    };
+    // const demoItem = {
+    //   escrowId: "0",
+    //   name: "Shiny APE",
+    //   crypto: "40.7826",
+    //   price: 183.5217,
+    //   location: "Bored Ape Yacht Club",
+    //   tenure: "4",
+    //   isInsured: false,
+    // };
     
-    let txAmount;
-    let _isInsuared = 
-        .isInsured;
-    let _escrowId = demoItem.escrowId;
+    let txAmount, _borrower;
+    let _isInsuared = false;
     try {
       if (window.ethereum) {
         const web3Modal = new Web3Modal();
@@ -534,7 +518,7 @@ export const CreateLendProvider = ({ children }) => {
             method: "eth_accounts",
           });
           console.log(accounts[0]);
-          // _borrower = accounts[0];
+          _borrower = accounts[0];
         }
 
         const res = await contract.idToEscrow(escrowId); // object --> amount: {_hex: '0x01'}
@@ -549,7 +533,7 @@ export const CreateLendProvider = ({ children }) => {
         txAmount = utils.parseEther(txAmount); // '1.1' --> '1.1 * 10^18'
 
 
-        const txRes = await contract._acceptOffer(_escrowId, _isInsuared, {
+        const txRes = await contract._acceptOffer(escrowId, _isInsuared, {
           value: txAmt, // '1.1 * 10^18'
           gasLimit: 500000000,
         });

@@ -4,8 +4,6 @@ import styles from "./ModalPurchase.module.sass";
 import Modal from "../Modal";
 import Icon from "../Icon";
 
-import CreateLendContext from "../../context/LendContext";
-
 import { numberWithCommas } from "../../utils";
 
 import CreateLendContext from "../../context/LendContext";
@@ -88,8 +86,8 @@ const Waiting = ({}) => {
       />
       <h5 className={cn("h5", styles.subtitle)}>Waiting for confirmation</h5>
       <div className={styles.text}>
-        You are purchasing{" "}
-        <span className={styles.red}>{activeObject.title}</span> for{" "}
+        You are lending{" "}
+        <span className={styles.red}>{activeObject.title}</span> tokens worth of {" "}
         <span className={styles.dark}>{activeObject.amount} TFil</span>
       </div>
     </div>
@@ -103,9 +101,9 @@ const Complete = ({}) => (
     </div>
     <h5 className={cn("h5", styles.subtitle)}>Purchased</h5>
     <div className={styles.text}>Awesome, transaction submitted.</div>
-    <Link href='/marketplace'>
+    <Link href='/dashboard'>
       <p className={styles.explore}>
-        View on marketplace
+        View on dashboard
         <Icon name='external-link' size='16' />
       </p>
     </Link>
@@ -116,20 +114,9 @@ const Joy = ({ setStateModal }: ModalType) => {
   const [value, setValue] = useState<boolean>(false);
   const [terms, setTerms] = useState<boolean>(false);
   const { activeObject, acceptOffer } = useContext(CreateLendContext);
-
-  const handleAcceptOffer = async () => {
-    const response = await acceptOffer(activeObject);
-    console.log("Accept offer res💵: ", response);
-
-    if (response) setStateModal("complete");
-    else setStateModal("error");
-  };
-
-  const {acceptOffer} = useContext(CreateLendContext);
-
   
 const handleAcceptOffer = async () => {
-  const response = await acceptOffer();
+  const response = await acceptOffer(activeObject);
   console.log('Accept offer res💵: ', response);
   
   if (response) setStateModal("complete")
