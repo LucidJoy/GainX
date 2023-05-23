@@ -53,7 +53,7 @@ const Wallet = ({ className, children }) => {
 
   const activeItem = navigation.find((x) => router.pathname.includes(x.url));
 
-  useEffect(() => console.log("⛵️ ", activeItem), []);
+  useEffect(() => console.log("⛵️ ", router.pathname, activeItem.url), []);
 
   return (
     <>
@@ -74,17 +74,7 @@ const Wallet = ({ className, children }) => {
               {navigation.map((item, index) =>
                 item.url ? (
                   <Link
-                    // className={
-                    //   router.pathname === activeItem
-                    //     ? cn(styles.item, {
-                    //         [styles.separator]: item.separator,
-                    //       })
-                    //     : styles.active
-                    // }
-                    className={cn(styles.item, {
-                      [styles.separator]: item.separator,
-                    })}
-                    // activeClassName={styles.active}
+                    className={styles.sideMenuNA}
                     href={item.url}
                     key={index}
                   >
@@ -120,7 +110,7 @@ const Wallet = ({ className, children }) => {
               Deposit
             </Link> */}
             <button
-              className={cn("button button-small", styles.button)}
+              className={cn("button", styles.button)}
               onClick={() => setVisibleWithdraw(!visibleWithdraw)}
             >
               Buy Insurance

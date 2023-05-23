@@ -29,26 +29,20 @@ const NavigationListFooter: NavigationType[] = [
     title: "Gameplay",
     url: "/gameplay",
   },
-  {
-    title: "Roadmap",
-    url: "/roadmap",
-  },
+
   {
     title: "Marketplace",
     url: "/marketplace",
   },
   {
-    title: "Download & Play",
-    url: "/download-and-play",
+    title: "Dashboard",
+    url: "/dashboard",
   },
-  {
-    title: "Meet the team",
-    url: "/meet-the-team",
-  },
-  {
-    title: "Wishlist detailed",
-    url: "/wishlist-detailed",
-  },
+
+  // {
+  //   title: "Wishlist detailed",
+  //   url: "/wishlist-detailed",
+  // },
 ];
 
 const LegalList: NavigationType[] = [

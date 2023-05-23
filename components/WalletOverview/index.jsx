@@ -1,6 +1,7 @@
 // ARV
 
 import React, { useState } from "react";
+import { Poppins } from "next/font/google";
 import cn from "classnames";
 import styles from "./WalletOverview.module.sass";
 import Wallet from "../Wallet";
@@ -11,6 +12,10 @@ import AssetBalances from "./AssetBalances";
 // import Integrations from "./Integrations";
 
 const optionsCurrency = ["USD", "EUR", "RUB"];
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+});
 
 const WalletOverview = () => {
   const [search, setSearch] = useState("");
@@ -51,7 +56,17 @@ const WalletOverview = () => {
               setValue={setCurrency}
               options={optionsCurrency}
             /> */}
-            <button className={cn("button-black button-small", styles.button)}>
+            <button
+              style={{
+                background: "#E45F35",
+                color: "#23262F",
+                fontSize: "14px",
+                padding: "0 16px",
+                height: "40px",
+                borderRadius: "20px",
+                fontWeight: 600,
+              }}
+            >
               Score: 1124
             </button>
           </div>

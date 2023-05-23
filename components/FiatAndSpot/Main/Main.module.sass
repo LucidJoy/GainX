@@ -1,4 +1,14 @@
 @import ../../../styles/helpers
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap')
+
+$n1: #141416
+$n2: #23262F
+$n3: #353945
+$n4: #777E90
+$n5: #B1B5C3
+$n6: #E6E8EC
+$n7: #F4F5F6
+$n8: #FCFCFD
 
 .main
     padding: 32px
@@ -11,7 +21,14 @@
         background: #17181B
 
 .title
+    margin-right: auto
     margin-bottom: 20px
+    font-family: 'Poppins', sans-serif
+    font-weight: 600
+    font-size: 32px
+    +m
+        flex: 0 0 100%
+        margin: 0 0 20px
 
 .list
     display: flex
@@ -30,11 +47,8 @@
 .info
     margin-bottom: 4px
     font-weight: 500
-    color: $n3
-    +d
-        font-size: 12px
-    +dark
-        color: $n7
+    font-size: 15px
+    color: #777E8F
 
 .line
     display: flex
@@ -49,7 +63,11 @@
 
 .category
     margin-left: 8px
-    color: #17181B
+    padding: 0px 8px
+    font-size: 12px
+    font-weight: bold
+    border-radius: 5px
+    text-transform: uppercase
 
 .price
     +body-2
