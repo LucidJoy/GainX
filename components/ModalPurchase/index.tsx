@@ -8,15 +8,19 @@ import CreateLendContext from "../../context/LendContext";
 
 import { numberWithCommas } from "../../utils";
 
+import CreateLendContext from "../../context/LendContext";
+
 import PreviewLoader from "../PreviewLoader";
 import Link from "next/link";
 import Checkbox from "../Checkbox";
 
 const item = {
-  name: "Lumburr",
-  crypto: "0,008 ETH",
-  price: 32.018,
-  location: "Mars",
+  escrowId: "0",
+  name: "Shiny APE",
+  crypto: "40.7826",
+  price: 183.5217,
+  location: "Bored Ape Yacht Club",
+  tenure: "4"
 };
 
 const exchange = 2646.4;
@@ -101,7 +105,7 @@ const Complete = ({}) => (
     <div className={styles.text}>Awesome, transaction submitted.</div>
     <Link href='/marketplace'>
       <p className={styles.explore}>
-        View on explore
+        View on marketplace
         <Icon name='external-link' size='16' />
       </p>
     </Link>
@@ -120,6 +124,18 @@ const Joy = ({ setStateModal }: ModalType) => {
     if (response) setStateModal("complete");
     else setStateModal("error");
   };
+
+  const {acceptOffer} = useContext(CreateLendContext);
+
+  
+const handleAcceptOffer = async () => {
+  const response = await acceptOffer();
+  console.log('Accept offer res💵: ', response);
+  
+  if (response) setStateModal("complete")
+  else setStateModal("error")
+  
+}
 
   return (
     <div>

@@ -1,10 +1,10 @@
 // ARV
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import styles from "./AssetBalances.module.sass";
 
-import CreateLendContext from "../../../context/LendContext"
+import CreateLendContext from "../../../context/LendContext";
 
 // const items = [
 //   {
@@ -18,14 +18,26 @@ import CreateLendContext from "../../../context/LendContext"
 
 // overview page items
 
-const AssetBalances = () => {
-  const {
-    listNftToMarketplace,
-    borrowerList,
-    lenderList
-  } = useContext(CreateLendContext);
+const AssetBalances = ({ overview, lender, borrower }) => {
+  const { listNftToMarketplace, borrowerList, lenderList } =
+    useContext(CreateLendContext);
 
-  let items = [...borrowerList, ...lenderList]
+  let items;
+
+  if (overview) {
+    console.log("Overview dashboard");
+    items = [...borrowerList, ...lenderList];
+  }
+
+  if (lender) {
+    console.log("Lender dashboard");
+    items = lenderList;
+  }
+
+  if (borrower) {
+    console.log("Borrower dashboard");
+    items = borrowerList;
+  }
 
   return (
     <div className={styles.wrap}>
@@ -37,38 +49,52 @@ const AssetBalances = () => {
           <div className={styles.col}>Tenure</div>
           <div className={styles.col}>Insured</div>
         </div>
-        {items.map((x, index) => (
-          <div
-            className={styles.row}
+        {items.length == 0 ? (
+          <p
+            style={{
+              color: "#ffffff",
+              fontSize: "16px",
+              padding: "0 16px",
+              height: "40px",
+              borderRadius: "20px",
+              fontWeight: 700,
+              paddingTop: "7px",
+            }}
           >
-            <div className={styles.col}>
-              <div className={styles.currency}>
-                {/* <div className={styles.icon}>
+            No records found
+          </p>
+        ) : (
+          items.map((x, index) => (
+            <div className={styles.row}>
+              <div className={styles.col}>
+                <div className={styles.currency}>
+                  {/* <div className={styles.icon}>
                   <img src={x.icon} alt="Currency" />
                 </div> */}
-                <div className={styles.details}>
-                  <div className={styles.info}>{`# ${x.escrowId}`}</div>
+                  <div className={styles.details}>
+                    <div className={styles.info}>{`# ${x.escrowId}`}</div>
+                  </div>
                 </div>
               </div>
+              <div className={styles.col}>
+                {x.apy && (
+                  <div className={cn("category-green", styles.category)}>
+                    {`${x.apy} % APY`}
+                  </div>
+                )}
+              </div>
+              <div className={styles.col}>
+                <div className={styles.info}>{`${x.amount} TFil`}</div>
+              </div>
+              <div className={styles.col}>
+                <div className={styles.info}>{`${x.tenure} days`}</div>
+              </div>
+              <div className={styles.col}>
+                <div className={styles.info}>{`${x.isInsuared}`}</div>
+              </div>
             </div>
-            <div className={styles.col}>
-              {x.apy && (
-                <div className={cn("category-green", styles.category)}>
-                  {`${x.apy} % APY`}
-                </div>
-              )}
-            </div>
-            <div className={styles.col}>
-              <div className={styles.info}>{`${x.amount} TFil`}</div>
-            </div>
-            <div className={styles.col}>
-              <div className={styles.info}>{`${x.tenure} days`}</div>
-            </div>
-            <div className={styles.col}>
-              <div className={styles.info}>{`${x.isInsuared}`}</div>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
