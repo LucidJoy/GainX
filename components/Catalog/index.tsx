@@ -24,6 +24,10 @@ type ListProps = {
   saleItem?: boolean;
 };
 
+type AllListType = {
+  allListings?: any[];
+};
+
 const Catalog = ({
   className,
   value,
@@ -41,7 +45,7 @@ const Catalog = ({
 
   const router = useRouter();
 
-  const { allListings } = useContext(CreateLendContext);
+  const { allListings }: AllListType = useContext(CreateLendContext);
 
   return (
     <>
