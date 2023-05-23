@@ -11,9 +11,9 @@ const Logo = ({ className }: LogoProps) => (
   <Link href='/'>
     <div className={cn(styles.logo, className)}>
       <Image
-        src='/images/astroclash.png'
-        width='152'
-        height='56'
+        src='/images/gainxlogo.png'
+        width='200'
+        height='100'
         alt='AstroClash'
       />
     </div>
