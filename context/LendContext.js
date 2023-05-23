@@ -3,6 +3,7 @@ import { ethers, utils } from "ethers";
 import Web3Modal from "web3modal";
 const Moralis = require("moralis").default;
 const { EvmChain } = require("@moralisweb3/common-evm-utils");
+import { Database } from "@tableland/sdk";
 import axios from "axios";
 
 // import { Database } from "@tableland/sdk";
@@ -15,8 +16,8 @@ import { useRouter } from "next/router";
 
 const CreateLendContext = createContext({});
 
-const gainXContractAddress = "0xC416DECc4b7fD1F2Ad91F8565a9a32e0ED756f05"; // 0xC416DECc4b7fD1F2Ad91F8565a9a32e0ED756f05
-const gainxContractAddress = "0x9c88f79eA319B9770125E689F9aeDCE1C0992224"; // new
+// const gainxContractAddress = "0x513028401543099405cb47bC00788a05d99E91F2";
+const gainxContractAddress = "0x9c88f79eA319B9770125E689F9aeDCE1C0992224";
 const gainxTokenContractAddress = "0xd4e6eC0202F1960dA896De13089FF0e4A07Db4E9";
 const redeemTokenContractAddress = "0xEC6C1001a15c48D4Ea2C7CD7C45a1c5b6aD120E9";
 
@@ -25,6 +26,21 @@ const gainxTokenAbi = gainxToken.abi;
 const redeemTokenAbi = redeemToken.abi;
 let collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d";
 let months = 3;
+
+async function connectDatabase(signer) {
+  const db = new Database({ signer });
+  return db;
+}
+
+async function handleConnect() {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  await provider.send("eth_requestAccounts", []);
+  const signer = provider.getSigner();
+  setSigner(signer);
+  const database = await connectDatabase(signer);
+  setDatabase(database);
+  console.log(database);
+}
 
 export const CreateLendProvider = ({ children }) => {
   const route = useRouter();
@@ -48,6 +64,65 @@ export const CreateLendProvider = ({ children }) => {
   const [lenderList, setLenderList] = useState([]);
   const [borrowerList, setBorrowerList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [activeObject, setActiveObject] = useState({
+    title: "",
+    image: "",
+    escrowId: "",
+    amount: "",
+    tenure: "",
+    apy: "",
+    borrower: "",
+    accepted: "",
+    isInsuared: "",
+    lender: "",
+    nftAddress: "",
+    nftId: "",
+  });
+  const [database, setDatabase] = useState();
+  const [tablename, setTablename] = useState();
+  const [tabledata, setTabledata] = useState({
+    key: "",
+    value: "",
+  });
+
+  async function maketable() {
+    const prefix = "demo_table";
+    const { meta: create } = await database
+      .prepare(`CREATE TABLE ${prefix}(id text, data text);`)
+      .run();
+    const { name } = create.txn;
+    setTablename(name);
+    console.log("table", name);
+  }
+
+  async function writetable() {
+    const { meta: insert } = await database
+      .prepare(`INSERT INTO ${tablename} (id, data) VALUES (?, ?);`)
+      .bind(parseInt(tabledata?.key), tabledata?.value.toString())
+      .run();
+
+    await insert.txn.wait();
+
+    const { results } = await database
+      .prepare(`SELECT * FROM ${tablename};`)
+      .all();
+    console.log(results);
+  }
+
+  async function connectDatabase(signer) {
+    const db = new Database({ signer });
+    return db;
+  }
+
+  async function handleConnect() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    setSigner(signer);
+    const database = await connectDatabase(signer);
+    setDatabase(database);
+    console.log(database);
+  }
 
   const [offerId, setOfferId] = useState("");
   let [estAmt, setEstAmt] = useState("");
@@ -218,11 +293,11 @@ export const CreateLendProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      await getMyNfts();
-    })();
-  }, []);
+  // useEffect(() =>
+  //   (async () => {
+  //     await getMyNfts();
+  //   })();
+  // }, []);
 
   const getLendedOffers = async () => {
     let results = [];
@@ -359,6 +434,22 @@ export const CreateLendProvider = ({ children }) => {
     apy: "",
     */
     let _borrower;
+
+    setTabledata({
+      key: nftId,
+      value: {
+        nftAddress,
+        nftId,
+        chain,
+        estimatedAmount,
+        tenure,
+        apy,
+      },
+    });
+    handleConnect();
+    maketable();
+    writetable();
+
     try {
       if (window.ethereum) {
         const web3Modal = new Web3Modal();
@@ -410,8 +501,7 @@ export const CreateLendProvider = ({ children }) => {
     }
   };
 
-  const acceptOffer = async () => {
-    /*
+  const acceptOffer = async ({ escrowId }) => {
     const demoItem = {
       escrowId: "0",
       name: "Shiny APE",
@@ -419,11 +509,12 @@ export const CreateLendProvider = ({ children }) => {
       price: 183.5217,
       location: "Bored Ape Yacht Club",
       tenure: "4",
-      isInsured: false
+      isInsured: false,
     };
-    */
+    
     let txAmount;
-    let _isInsuared = demoItem.isInsured;
+    let _isInsuared = 
+        .isInsured;
     let _escrowId = demoItem.escrowId;
     try {
       if (window.ethereum) {
@@ -446,7 +537,7 @@ export const CreateLendProvider = ({ children }) => {
           // _borrower = accounts[0];
         }
 
-        const res = await contract.idToEscrow(_escrowId); // object --> amount: {_hex: '0x01'}
+        const res = await contract.idToEscrow(escrowId); // object --> amount: {_hex: '0x01'}
         txAmount = Number(res.amount._hex); // txAmount = 1 (Number)
 
         if (_isInsuared == true || _isInsuared === "true") {
@@ -456,6 +547,7 @@ export const CreateLendProvider = ({ children }) => {
         let txAmt = txAmount.toString(); // 1.1 --> '1.1'
         txAmount = txAmount.toString(); // 1.1 --> '1.1'
         txAmount = utils.parseEther(txAmount); // '1.1' --> '1.1 * 10^18'
+
 
         const txRes = await contract._acceptOffer(_escrowId, _isInsuared, {
           value: txAmt, // '1.1 * 10^18'
@@ -672,6 +764,8 @@ export const CreateLendProvider = ({ children }) => {
         buyInsurance,
         repayAmount,
         reedemAmount,
+        activeObject,
+        setActiveObject,
         offerId,
         setOfferId,
         estAmt,

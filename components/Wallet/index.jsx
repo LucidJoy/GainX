@@ -57,7 +57,10 @@ const Wallet = ({ className, children }) => {
 
   return (
     <>
-      <div className={cn(className, styles.wallet)}>
+      <div
+        className={cn(className, styles.wallet)}
+        style={{ background: "#22252D" }}
+      >
         <div className={styles.sidebar}>
           <div className={cn(styles.group, { [styles.active]: visibleMenu })}>
             <div
@@ -123,6 +126,7 @@ const Wallet = ({ className, children }) => {
             </button>
           </div>
         </div>
+
         <div className={styles.wrapper}>{children}</div>
       </div>
 
