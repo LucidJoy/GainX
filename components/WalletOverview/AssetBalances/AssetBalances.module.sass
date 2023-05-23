@@ -1,7 +1,18 @@
 @import ../../../styles/helpers
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap')
+
+$n1: #141416
+$n2: #23262F
+$n3: #353945
+$n4: #777E90
+$n5: #B1B5C3
+$n6: #E6E8EC
+$n7: #F4F5F6
+$n8: #FCFCFD
 
 .wrap
     padding-bottom: 4px
+    font-family: 'Poppins', sans-serif
 
 .table
     display: table
@@ -10,6 +21,7 @@
 .row
     display: table-row
     color: $n2
+    font-size: 14px
     transition: background .2s
     &:first-child
         .col
@@ -37,7 +49,7 @@
     +m
         padding: 16px 8px
     +dark
-        color: $n8
+        color: #FCFCFD
     &:first-child
         padding-left: 32px
     &:last-child
@@ -73,3 +85,10 @@
 
 .text
     color: $n4
+
+.category
+    padding: 0px 8px
+    font-size: 12px
+    font-weight: bold
+    border-radius: 5px
+    width: fit-content

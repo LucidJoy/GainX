@@ -1,16 +1,50 @@
 @import ../../styles/helpers
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap')
+
+$n1: #141416
+$n2: #23262F
+$n3: #353945
+$n4: #777E90
+$n5: #B1B5C3
+$n6: #E6E8EC
+$n7: #F4F5F6
+$n8: #FCFCFD
+
+.sideMenuNA 
+    display: flex
+    align-items: center
+    color: $n4
+    font-size: 14px
+    font-weight: 600
+    margin-bottom: 20px
+    transition: 0.15s
+
+
+
+.sideMenuA 
+    display: flex
+    align-items: center
+    color: $n8
+    font-size: 14px
+    font-weight: 600
+    margin-bottom: 15px
+    transition: 0.3s
+
+.sideMenuNA:hover , .sideMenuA:hover 
+    color: $n6
 
 .wallet
     display: flex
     padding: 5px
     background: $n7
+    font-family: 'Poppins', sans-serif
     // height: calc( 100vh - 88px)
     margin-top: 90px
     +t
         display: block
         padding: 32px 16px 16px
     +dark
-        // background: $n1
+        background: $n3
 
 .sidebar
     display: flex
@@ -167,6 +201,7 @@
 
 .button
     width: 100%
+    font-weight: 600
     +t
         flex: 1
         margin: 0 6px

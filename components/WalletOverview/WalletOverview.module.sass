@@ -1,9 +1,20 @@
 @import ../../styles/helpers
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap')
+
+$n1: #141416
+$n2: #23262F
+$n3: #353945
+$n4: #777E90
+$n5: #B1B5C3
+$n6: #E6E8EC
+$n7: #F4F5F6
+$n8: #FCFCFD
 
 .top
     padding: 32px
     background: $n8
     border-radius: 4px
+    font-family: 'Poppins', sans-serif
     color: #fff
     +dark
         background: #18191D
@@ -17,6 +28,9 @@
 
 .title
     margin-right: auto
+    font-family: 'Poppins', sans-serif
+    font-weight: 600
+    font-size: 32px
     +m
         flex: 0 0 100%
         margin: 0 0 20px
@@ -84,6 +98,8 @@
 .info
     margin-bottom: 4px
     font-weight: 500
+    font-size: 15px
+    color: #777E8F
 
 .currency
     display: flex
@@ -91,19 +107,26 @@
 
 .number
     +body-bold-1
+    font-size: 25px
 
 .category
     margin-left: 8px
+    padding: 0px 8px
+    font-size: 12px
+    font-weight: bold
+    border-radius: 5px
 
 .price
     +body-2
     color: $n4
+    font-size: 16px
 
 .head
-    padding: 20px 32px 8px
-    +caption-2
-    font-weight: 500
-    color: $n4
+    padding: 20px 32px 4px
+    font-size: 14px
+    margin-left: 0px
+    font-weight: 600 !important
+    color: $n5
     +m
         padding: 20px 0 8px
 
