@@ -49,7 +49,7 @@ const Catalog = ({
         <div className={styles.body}>
           <div className={cn("container", styles.container)}>
             <p className={styles.heading}>
-              {router.pathname === "/marketplace" ? "Marketplace" : "My NFT's"}
+              {router.pathname === "/marketplace" ? "Marketplace" : "My NFTs"}
             </p>
             {/* {wishlist ? (
               <Wishlist value={activeIndex} />

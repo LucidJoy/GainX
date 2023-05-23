@@ -33,9 +33,9 @@ const Hero = ({}: HeroProps) => {
     <div className={cn(styles.hero)}>
       <div className={cn("container", styles.container)}>
         <div className={styles.head}>
-          <h1 className={cn("h1", styles.title)}>Play-to-Earn Revolution</h1>
+          <h1 className={cn("h1", styles.title)}>Sky Rocket your Leverage</h1>
           <div className={cn("h5", styles.info)}>
-            Play-to-Earn NFT Marketplace
+            Empowering NFT collateralized loans with AI
           </div>
 
           <Link href='/marketplace'>

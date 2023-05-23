@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import cn from "classnames";
 import styles from "./TextInput.module.sass";
 import Icon from "../Icon";
+
+import CreateLendContext from "../../context/LendContext";
 
 const TextInput = ({
   className,
@@ -15,6 +17,10 @@ const TextInput = ({
   placeholder,
   ...props
 }) => {
+  const {
+    setOfferId
+  } = useContext(CreateLendContext);
+
   return (
     <div
       className={cn(
@@ -31,6 +37,7 @@ const TextInput = ({
           className={cn(classInput, styles.input)}
           {...props}
           placeholder={placeholder}
+          onChange={(e) => setOfferId(e.target.value)}
         />
         {view && (
           <button className={styles.toggle}>

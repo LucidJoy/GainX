@@ -7,21 +7,29 @@ const PlayNow = "/";
 
 const NavigationList: NavigationType[] = [
   {
-    title: "Gameplay",
-    url: "/gameplay",
+    title: "Home",
+    url: "/",
   },
-  {
-    title: "Roadmap",
-    url: "/roadmap",
-  },
+  // {
+  //   title: "Gameplay",
+  //   url: "/gameplay",
+  // },
+  // {
+  //   title: "Roadmap",
+  //   url: "/roadmap",
+  // },
   {
     title: "Marketplace",
     url: "/marketplace",
   },
   {
-    title: "Download & Play",
-    url: "/download-and-play",
+    title: "Dashboard",
+    url: "/dashboard",
   },
+  // {
+  //   title: "Download & Play",
+  //   url: "/download-and-play",
+  // },
 ];
 
 const NavigationListFooter: NavigationType[] = [
