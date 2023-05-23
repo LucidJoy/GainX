@@ -21,7 +21,7 @@ const FiatAndSpot = () => {
           <div className={styles.item}>
             <div className={styles.head}>Positions</div>
             <div className={styles.body}>
-              <AssetBalances>
+              <AssetBalances overview={false} borrower={true} lender={false}>
                 <Link
                   className={cn("button-stroke button-small", styles.button)}
                   to='/buy-crypto'
