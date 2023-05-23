@@ -1,10 +1,10 @@
 // ARV
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import styles from "./AssetBalances.module.sass";
 
-import CreateLendContext from "../../../context/LendContext"
+import CreateLendContext from "../../../context/LendContext";
 
 // const items = [
 //   {
@@ -18,14 +18,26 @@ import CreateLendContext from "../../../context/LendContext"
 
 // overview page items
 
-const AssetBalances = () => {
-  const {
-    listNftToMarketplace,
-    borrowerList,
-    lenderList
-  } = useContext(CreateLendContext);
+const AssetBalances = ({overview, lender, borrower }) => {
+  const { listNftToMarketplace, borrowerList, lenderList } =
+    useContext(CreateLendContext);
 
-  let items = [...borrowerList, ...lenderList]
+  let items;
+
+  if (overview) {
+    console.log("Overview dashboard");
+    items = [...borrowerList, ...lenderList];
+  }
+
+  if (lender) {
+    console.log("Lender dashboard");
+    items = lenderList;
+  }
+
+  if (borrower) {
+    console.log("Borrower dashboard");
+    items = borrowerList;
+  }
 
   return (
     <div className={styles.wrap}>
@@ -38,9 +50,7 @@ const AssetBalances = () => {
           <div className={styles.col}>Insured</div>
         </div>
         {items.map((x, index) => (
-          <div
-            className={styles.row}
-          >
+          <div className={styles.row}>
             <div className={styles.col}>
               <div className={styles.currency}>
                 {/* <div className={styles.icon}>

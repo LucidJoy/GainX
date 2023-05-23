@@ -88,7 +88,7 @@ const WalletOverview = () => {
         <div className={styles.item}>
           <div className={styles.head}>Positions</div>
           <div className={styles.body}>
-            <AssetBalances />
+            <AssetBalances overview={true} borrower={false} lender={false}/>
           </div>
         </div>
         <div className={styles.item}>
