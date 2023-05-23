@@ -16,6 +16,16 @@ type ListProps = {
   offers?: [];
 };
 
+type Item = {
+  escrowId: number;
+  // other properties
+};
+
+type Offer = {
+  escrowId: number;
+  // other properties
+};
+
 const List = ({
   className,
   items,
@@ -30,7 +40,7 @@ const List = ({
   return (
     <>
       <div className={cn(styles.list, { [styles.list_2]: col2 }, className)}>
-        {offers.map((offer, index) => {
+        {offers.map((offer: Offer, index) => {
           let x = items[Number(offer?.escrowId)];
 
           return (
