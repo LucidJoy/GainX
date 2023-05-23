@@ -6,31 +6,31 @@ type SectionsType = {
 
 const sections: SectionsType[] = [
   {
-    title: "Get your character",
+    title: "Build your reputation",
+    content:
+      "Incidunt aut sapiente similique recusandae. Veniam aliquid est rerum dolores enim consequatur id similique. Quos quis ea. Dolor ipsam u.",
+    image: "/images/content/gameplay/3.png",
+  },
+  {
+    title: "Get loans against your NFTs cross-chain",
     content:
       "Incidunt aut sapiente similique recusandae. Veniam aliquid est rerum dolores enim consequatur id similique. Quos quis ea. Dolor ipsam u.",
     image: "/images/content/gameplay/1.png",
   },
   {
-    title: "Battle enemies",
+      title: "Manage loans as if they were games",
+      content:
+          "Incidunt aut sapiente similique recusandae. Veniam aliquid est rerum dolores enim consequatur id similique. Quos quis ea. Dolor ipsam u.",
+      image: "/images/content/gameplay/4.png",
+  },
+  {
+    title: "Hedge your lending with derivatives",
     content:
       "Incidunt aut sapiente similique recusandae. Veniam aliquid est rerum dolores enim consequatur id similique. Quos quis ea. Dolor ipsam u.",
     image: "/images/content/gameplay/2.png",
   },
   {
-    title: "Build your colony",
-    content:
-      "Incidunt aut sapiente similique recusandae. Veniam aliquid est rerum dolores enim consequatur id similique. Quos quis ea. Dolor ipsam u.",
-    image: "/images/content/gameplay/3.png",
-  },
-  // {
-  //     title: "Challenge friends",
-  //     content:
-  //         "Incidunt aut sapiente similique recusandae. Veniam aliquid est rerum dolores enim consequatur id similique. Quos quis ea. Dolor ipsam u.",
-  //     image: "/images/content/gameplay/4.png",
-  // },
-  {
-    title: "Earn rewards",
+    title: "Earn better leverage",
     content:
       "Incidunt aut sapiente similique recusandae. Veniam aliquid est rerum dolores enim consequatur id similique. Quos quis ea. Dolor ipsam u.",
     image: "/images/content/gameplay/5.png",

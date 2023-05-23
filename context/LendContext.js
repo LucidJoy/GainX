@@ -3,6 +3,9 @@ import { ethers, utils } from "ethers";
 import Web3Modal from "web3modal";
 const Moralis = require("moralis").default;
 const { EvmChain } = require("@moralisweb3/common-evm-utils");
+import axios from "axios";
+
+// import { Database } from "@tableland/sdk";
 
 import gainx from "./Gainx.json";
 import gainxToken from "./GainxToken.json";
@@ -12,15 +15,19 @@ import { useRouter } from "next/router";
 
 const CreateLendContext = createContext({});
 
-const gainxContractAddress = "0x513028401543099405cb47bC00788a05d99E91F2";
+const gainXContractAddress = "0xC416DECc4b7fD1F2Ad91F8565a9a32e0ED756f05"; // 0xC416DECc4b7fD1F2Ad91F8565a9a32e0ED756f05
+const gainxContractAddress = "0x9c88f79eA319B9770125E689F9aeDCE1C0992224"; // new
 const gainxTokenContractAddress = "0xd4e6eC0202F1960dA896De13089FF0e4A07Db4E9";
 const redeemTokenContractAddress = "0xEC6C1001a15c48D4Ea2C7CD7C45a1c5b6aD120E9";
 
 const gainxAbi = gainx.abi;
 const gainxTokenAbi = gainxToken.abi;
 const redeemTokenAbi = redeemToken.abi;
+let collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d";
+let months = 3;
 
 export const CreateLendProvider = ({ children }) => {
+  const route = useRouter();
   const [currentAccount, setCurrentAccount] = useState("");
 
   const [wishlistForm, setWishlistForm] = useState({
@@ -42,56 +49,106 @@ export const CreateLendProvider = ({ children }) => {
   const [borrowerList, setBorrowerList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [offerId, setOfferId] = useState("");
+  let [estAmt, setEstAmt] = useState("");
+
+  let offers = ["55.6064", "50.2044", "40.7826", "21.9151"];
+  useEffect(() => {
+    if (Number(myNftForm.tenure) == 1) {
+      console.log("Offer 0");
+      setEstAmt(offers[0]);
+    } else if (Number(myNftForm.tenure) > 1 && Number(myNftForm.tenure) <= 3) {
+      console.log("Offer 1");
+      setEstAmt(offers[1]);
+    } else if (Number(myNftForm.tenure) > 3 && Number(myNftForm.tenure) <= 6) {
+      console.log("Offer 2");
+      setEstAmt(offers[2]);
+    } else {
+      console.log("Offer 3");
+      setEstAmt(offers[3]);
+    }
+  }, [myNftForm.tenure]);
+
+  // AI/ML api integration
+  const getNftEstPricesApi = async () => {
+    const res = await axios({
+      method: "get",
+      url: `https://nft-api-ou54.onrender.com/predictions/contract_address=${myNftForm.nftAddress}&no_of_months=${myNftForm.tenure}`,
+      withCredentials: false,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("Est prices: ", res);
+  };
+
+  const trainModelApi = async () => {
+    const res = await axios({
+      method: "get",
+      url: `https://nft-api-ou54.onrender.com//train_model/contract_address=${myNftForm.nftAddress}`,
+      withCredentials: false,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("Train Model: ", res);
+  };
+
+  // useEffect(() => {
+  //   (
+  //     async () => {
+  //       await getNftEstPricesApi();
+  //     }
+  //   )();
+  // }, [])
+
   const getAllListings = async () => {
     let results = [];
     let element;
-    try {
-      if (window.ethereum) {
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-        const signer = provider.getSigner();
+    if (window.ethereum) {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
 
-        const contract = new ethers.Contract(
-          gainxContractAddress,
-          gainxAbi,
-          provider
-        );
+      const contract = new ethers.Contract(
+        gainxContractAddress,
+        gainxAbi,
+        provider
+      );
 
-        if (ethereum.isConnected()) {
-          const accounts = await window.ethereum.request({
-            method: "eth_accounts",
-          });
-          console.log(accounts[0]);
-        }
-
-        const txRes = await contract.getExploreListings();
-
-        txRes.map((escrow, i) => {
-          element = {
-            escrowId: Number(escrow.escrowId._hex),
-            nftAddress: escrow.nftAddress,
-            nftId: Number(escrow.nftId._hex),
-            lender: escrow.lender,
-            borrower: escrow.borrower,
-            amount: utils.formatEther(Number(escrow.amount._hex).toString()),
-            tenure: Number(escrow.tenure._hex),
-            apy: Number(escrow.apy._hex),
-            isInsuared: escrow.isInsuared,
-            accepted: escrow.accepted,
-          };
-
-          results.push(element);
+      if (ethereum.isConnected()) {
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
         });
-
-        setAllListings(results);
-
-        console.log("All Listings👽: ", txRes);
-        return true;
+        console.log(accounts[0]);
       }
-    } catch (error) {
-      alert("Fetch listing Err: ", error);
-      console.log("Fetch listing Err: ", error);
+
+      const txRes = await contract.getExploreListings();
+
+      txRes.map((escrow, i) => {
+        element = {
+          escrowId: Number(escrow.escrowId._hex),
+          nftAddress: escrow.nftAddress,
+          nftId: Number(escrow.nftId._hex),
+          lender: escrow.lender,
+          borrower: escrow.borrower,
+          amount: utils.formatEther(Number(escrow.amount._hex).toString()),
+          tenure: Number(escrow.tenure._hex),
+          apy: Number(escrow.apy._hex),
+          isInsuared: escrow.isInsuared,
+          accepted: escrow.accepted,
+        };
+
+        results.push(element);
+      });
+
+      setAllListings(results);
+
+      console.log("All Listings👽: ", txRes);
+      return true;
     }
   };
 
@@ -132,10 +189,7 @@ export const CreateLendProvider = ({ children }) => {
 
     const allNFTs = [];
 
-    const chains = [
-      EvmChain.MUMBAI,
-      EvmChain.POLYGON,
-    ];
+    const chains = [EvmChain.MUMBAI, EvmChain.POLYGON];
 
     let i = 0;
 
@@ -164,132 +218,136 @@ export const CreateLendProvider = ({ children }) => {
     let results = [];
     let element;
     let userAddress;
-    try {
-      if (window.ethereum) {
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-        const signer = provider.getSigner();
 
-        const contract = new ethers.Contract(
-          gainxContractAddress,
-          gainxAbi,
-          provider
-        );
+    if (window.ethereum) {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
 
-        if (ethereum.isConnected()) {
-          const accounts = await window.ethereum.request({
-            method: "eth_accounts",
-          });
-          console.log(accounts[0]);
-          userAddress = accounts[0];
-        }
+      const contract = new ethers.Contract(
+        gainxContractAddress,
+        gainxAbi,
+        provider
+      );
 
-        const txRes = await contract.getLendersList(userAddress);
-
-        txRes.map((offer, i) => {
-          element = {
-            escrowId: Number(offer.escrowId._hex),
-            nftAddress: offer.nftAddress,
-            nftId: Number(offer.nftId._hex),
-            lender: offer.lender,
-            borrower: offer.borrower,
-            amount: utils.formatEther(Number(offer.amount._hex).toString()),
-            tenure: Number(offer.tenure._hex),
-            apy: Number(offer.apy._hex),
-            isInsuared: offer.isInsuared,
-            accepted: offer.accepted,
-          };
-
-          results.push(element);
+      if (ethereum.isConnected()) {
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
         });
-
-        setLenderList(results);
-
-        console.log("Lenders List📞: ", results);
-        return true;
+        console.log(accounts[0]);
+        userAddress = accounts[0];
       }
-    } catch (error) {
-      alert("Fetch listing Err: ", error);
-      console.log("Fetch listing Err: ", error);
+
+      const txRes = await contract.getLendersList(userAddress);
+      console.log("Lenders txRes: ", txRes);
+
+      txRes.map((offer, i) => {
+        element = {
+          escrowId: Number(offer.escrowId._hex),
+          nftAddress: offer.nftAddress,
+          nftId: Number(offer.nftId._hex),
+          lender: offer.lender,
+          borrower: offer.borrower,
+          amount: utils.formatEther(Number(offer.amount._hex).toString()),
+          tenure: Number(offer.tenure._hex),
+          apy: Number(offer.apy._hex),
+          isInsuared: offer.isInsuared,
+          accepted: offer.accepted,
+        };
+
+        results.push(element);
+      });
+
+      setLenderList(results);
+
+      console.log("Lenders List📞: ", results);
+      return true;
     }
   };
 
   useEffect(() => {
-    (
-      async () => {
-        await getLendedOffers();
-      }
-    )();
+    (async () => {
+      await getLendedOffers();
+    })();
   }, []);
 
   const getBorrowOffers = async () => {
     let results = [];
     let element;
     let userAddress;
-    try {
-      if (window.ethereum) {
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-        const signer = provider.getSigner();
 
-        const contract = new ethers.Contract(
-          gainxContractAddress,
-          gainxAbi,
-          provider
-        );
+    if (window.ethereum) {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
 
-        if (ethereum.isConnected()) {
-          const accounts = await window.ethereum.request({
-            method: "eth_accounts",
-          });
-          console.log(accounts[0]);
-          userAddress = accounts[0];
-        }
+      const contract = new ethers.Contract(
+        gainxContractAddress,
+        gainxAbi,
+        provider
+      );
 
-        const txRes = await contract.getBorrowersList(userAddress);
-
-        txRes.map((offer, i) => {
-          element = {
-            escrowId: Number(offer.escrowId._hex),
-            nftAddress: offer.nftAddress,
-            nftId: Number(offer.nftId._hex),
-            lender: offer.lender,
-            borrower: offer.borrower,
-            amount: utils.formatEther(Number(offer.amount._hex).toString()),
-            tenure: Number(offer.tenure._hex),
-            apy: Number(offer.apy._hex),
-            isInsuared: offer.isInsuared,
-            accepted: offer.accepted,
-          };
-
-          results.push(element);
+      if (ethereum.isConnected()) {
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
         });
-
-
-        setBorrowerList(results);
-
-        console.log("Borrow List📞: ", results);
-        return true;
+        console.log(accounts[0]);
+        userAddress = accounts[0];
       }
-    } catch (error) {
-      alert("Fetch listing Err: ", error);
-      console.log("Fetch listing Err: ", error);
+
+      const txRes = await contract.getBorrowersList(userAddress);
+
+      txRes.map((offer, i) => {
+        element = {
+          escrowId: Number(offer.escrowId._hex),
+          nftAddress: offer.nftAddress,
+          nftId: Number(offer.nftId._hex),
+          lender: offer.lender,
+          borrower: offer.borrower,
+          amount: utils.formatEther(Number(offer.amount._hex).toString()),
+          tenure: Number(offer.tenure._hex),
+          apy: Number(offer.apy._hex),
+          isInsuared: offer.isInsuared,
+          accepted: offer.accepted,
+        };
+
+        results.push(element);
+      });
+
+      setBorrowerList(results);
+
+      console.log("Borrow List📞: ", results);
+      return true;
     }
   };
 
   useEffect(() => {
-    (
-      async () => {
-        await getBorrowOffers();
-      }
-    )();
+    (async () => {
+      await getBorrowOffers();
+    })();
   }, []);
 
+  // tableland
 
-  const listNftToMarketplace = async (_amount, _nftAddress, _nftId, _tenure, _apy) => {
+  const listNftToMarketplace = async ({
+    nftAddress,
+    nftId,
+    chain,
+    estimatedAmount,
+    tenure,
+    apy,
+  }) => {
     // address _borrower, uint256 _amount, address _nftAddress, uint256 _nftId, uint256 _tenure, uint256 _apy
+    /*
+    nftAddress: "",
+    nftId: "",
+    chain: "",
+    estimatedAmount: "",
+    tenure: "",
+    apy: "",
+    */
     let _borrower;
     try {
       if (window.ethereum) {
@@ -312,17 +370,27 @@ export const CreateLendProvider = ({ children }) => {
           _borrower = accounts[0];
         }
 
-        _amount = utils.parseEther(_amount); // string
+        estAmt = utils.parseEther(estAmt); // string
         let listingPrice = utils.parseEther("0.5");
 
-        const txRes = await contract._initEscrow(_borrower, _amount, _nftAddress, _nftId, _tenure, _apy, {
-          value: listingPrice,
-          gasLimit: 500000000,
-        });
+        const txRes = await contract._initEscrow(
+          _borrower,
+          estAmt,
+          nftAddress,
+          nftId,
+          tenure,
+          apy,
+          {
+            value: listingPrice,
+            gasLimit: 500000000,
+          }
+        );
 
         setIsLoading(true);
         await txRes.wait(1);
         setIsLoading(false);
+
+        route.push("/marketplace");
 
         console.log(txRes);
         return true;
@@ -358,11 +426,11 @@ export const CreateLendProvider = ({ children }) => {
         const res = await contract.idToEscrow(_escrowId); // object --> amount: {_hex: '0x01'}
         txAmount = Number(res.amount._hex); // txAmount = 1 (Number)
 
-        if (_isInsuared == true || _isInsuared === 'true') {
-          txAmount += (0.1 * txAmount) // premium amount, 1 + (0.1*1) = 1.1 (Number)
+        if (_isInsuared == true || _isInsuared === "true") {
+          txAmount += 0.1 * txAmount; // premium amount, 1 + (0.1*1) = 1.1 (Number)
         }
 
-        txAmount = txAmount.toString(); // 1.1 --> '1.1' 
+        txAmount = txAmount.toString(); // 1.1 --> '1.1'
         txAmount = utils.parseEther(txAmount); // '1.1' --> '1.1 * 10^18'
 
         const txRes = await contract._initEscrow(_escrowId, _isInsuared, {
@@ -382,7 +450,8 @@ export const CreateLendProvider = ({ children }) => {
     }
   };
 
-  const buyInsurance = async (_escrowId) => {
+  const buyInsurance = async () => {
+    // _escrowId
     //msg.sender, currEscrow.amount, _escrowId
     let txAmount;
     let lender;
@@ -407,16 +476,20 @@ export const CreateLendProvider = ({ children }) => {
           lender = accounts[0];
         }
 
-        const res = await contract.idToEscrow(_escrowId); // object --> amount: {_hex: '0x01'}
+        // const res = await contract.idToEscrow(_escrowId); // object --> amount: {_hex: '0x01'}
+        const res = await contract.idToEscrow(offerId); // object --> amount: {_hex: '0x01'}
         txAmount = Number(res.amount._hex); // txAmount = 1 (Number)
 
-        txAmount = (0.1 * txAmount) // premium amount, (0.1*1) = 0.1 (Number)
+        txAmount = 0.1 * txAmount; // premium amount, (0.1*1) = 0.1 (Number)
 
-        txAmount = txAmount.toString(); // 0.1 --> '0.1' 
+        let amt = txAmount.toString(); // 0.1 --> '0.1'
+        txAmount = txAmount.toString(); // 0.1 --> '0.1'
         txAmount = utils.parseEther(txAmount); // '0.1' --> '0.1 * 10^18'
 
-        const txRes = await contract.buyInsurance(_escrowId, {
-          value: txAmount, // '0.1 * 10^18'
+        console.log("Formatted amount: ", Number(utils.formatEther(txAmount)));
+
+        const txRes = await contract.buyInsurance(lender, txAmount, offerId, {
+          value: amt, // '0.1'
           gasLimit: 500000000,
         });
 
@@ -429,6 +502,7 @@ export const CreateLendProvider = ({ children }) => {
       }
     } catch (error) {
       alert("Error while buying insurance!");
+      console.log(error);
     }
   };
 
@@ -572,7 +646,11 @@ export const CreateLendProvider = ({ children }) => {
         acceptOffer,
         buyInsurance,
         repayAmount,
-        reedemAmount
+        reedemAmount,
+        offerId,
+        setOfferId,
+        estAmt,
+        setEstAmt,
       }}
     >
       {children}
