@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import cn from "classnames";
 import styles from "./Catalog.module.sass";
 import List from "./List";
 import { useRouter } from "next/router";
 // import Filters from "./Filters";
 import Wishlist from "./Wishlist";
+import CreateLendContext from "../../context/LendContext";
 
 import { characters } from "../../mocks/characters";
 import { planets } from "../../mocks/planets";
@@ -40,6 +41,8 @@ const Catalog = ({
 
   const router = useRouter();
 
+  const { allListings } = useContext(CreateLendContext);
+
   return (
     <>
       <div className={cn(styles.catalog, className)}>
@@ -66,7 +69,12 @@ const Catalog = ({
                 ),
               }[activeIndex]
             )} */}
-            <List items={characters} crop={crop} saleItem={saleItem} />
+            <List
+              offers={allListings}
+              items={characters}
+              crop={crop}
+              saleItem={saleItem}
+            />
           </div>
         </div>
       </div>

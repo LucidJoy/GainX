@@ -63,7 +63,7 @@ const Description = ({
     </div>
     <div className={styles.prices}>
       <div className={cn("h4", styles.crypto)}>{crypto}</div>
-      <div className={styles.price}>$ {numberWithCommas(price)}</div>
+      <div className={styles.price}>{numberWithCommas(price)}</div>
     </div>
   </div>
 );
