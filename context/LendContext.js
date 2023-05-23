@@ -3,10 +3,9 @@ import { ethers, utils } from "ethers";
 import Web3Modal from "web3modal";
 const Moralis = require("moralis").default;
 const { EvmChain } = require("@moralisweb3/common-evm-utils");
-// import { Database } from "@tableland/sdk";
+import { Database } from "@tableland/sdk";
 import axios from "axios";
 
-// import { Database } from "@tableland/sdk";
 
 import gainx from "./Gainx.json";
 import gainxToken from "./GainxToken.json";
@@ -71,44 +70,44 @@ export const CreateLendProvider = ({ children }) => {
     value: "",
   });
 
-  // async function maketable() {
-  //   const prefix = "demo_table";
-  //   const { meta: create } = await database
-  //     .prepare(`CREATE TABLE ${prefix}(id text, data text);`)
-  //     .run();
-  //   const { name } = create.txn;
-  //   setTablename(name);
-  //   console.log("table", name);
-  // }
+  async function maketable() {
+    const prefix = "demo_table";
+    const { meta: create } = await database
+      .prepare(`CREATE TABLE ${prefix}(id text, data text);`)
+      .run();
+    const { name } = create.txn;
+    setTablename(name);
+    console.log("table", name);
+  }
 
-  // async function writetable() {
-  //   const { meta: insert } = await database
-  //     .prepare(`INSERT INTO ${tablename} (id, data) VALUES (?, ?);`)
-  //     .bind(parseInt(tabledata?.key), tabledata?.value.toString())
-  //     .run();
+  async function writetable() {
+    const { meta: insert } = await database
+      .prepare(`INSERT INTO ${tablename} (id, data) VALUES (?, ?);`)
+      .bind(parseInt(tabledata?.key), tabledata?.value.toString())
+      .run();
 
-  //   await insert.txn.wait();
+    await insert.txn.wait();
 
-  //   const { results } = await database
-  //     .prepare(`SELECT * FROM ${tablename};`)
-  //     .all();
-  //   console.log(results);
-  // }
+    const { results } = await database
+      .prepare(`SELECT * FROM ${tablename};`)
+      .all();
+    console.log(results);
+  }
 
-  // async function connectDatabase(signer) {
-  //   const db = new Database({ signer });
-  //   return db;
-  // }
+  async function connectDatabase(signer) {
+    const db = new Database({ signer });
+    return db;
+  }
 
-  // async function handleConnect() {
-  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //   await provider.send("eth_requestAccounts", []);
-  //   const signer = provider.getSigner();
-  //   setSigner(signer);
-  //   const database = await connectDatabase(signer);
-  //   setDatabase(database);
-  //   console.log(database);
-  // }
+  async function handleConnect() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    setSigner(signer);
+    const database = await connectDatabase(signer);
+    setDatabase(database);
+    console.log(database);
+  }
 
   const [offerId, setOfferId] = useState("");
   let [estAmt, setEstAmt] = useState("");
@@ -432,9 +431,9 @@ export const CreateLendProvider = ({ children }) => {
         apy,
       },
     });
-    // handleConnect();
-    // maketable();
-    // writetable();
+    handleConnect();
+    maketable();
+    writetable();
 
     try {
       if (window.ethereum) {
