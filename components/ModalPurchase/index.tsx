@@ -110,8 +110,7 @@ const handleAcceptOffer = async () => {
   console.log('Accept offer res💵: ', response);
   
   if (response) setStateModal("complete")
-  else setStateModal("error")
-  
+  else setStateModal("error") 
 }
 
   return (

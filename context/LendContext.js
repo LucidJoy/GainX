@@ -59,7 +59,7 @@ export const CreateLendProvider = ({ children }) => {
     price: 183.5217,
     location: "Bored Ape Yacht Club",
     tenure: "4",
-    isInsured: false
+    isInsured: false,
   };
 
   let offers = ["55.6064", "50.2044", "40.7826", "21.9151"];
@@ -185,6 +185,26 @@ export const CreateLendProvider = ({ children }) => {
       console.log(accounts[0]);
       // address = "0x9aCEcAF7e11BCbb9c114724FF8F51930e24f164b";
       address = accounts[0];
+
+      const allNFTs = [];
+
+      const chains = [EvmChain.MUMBAI, EvmChain.POLYGON];
+
+      let i = 0;
+
+      for (const chain of chains) {
+        const response = await Moralis.EvmApi.nft.getWalletNFTs({
+          address,
+          chain,
+        });
+
+        allNFTs.push(...response.jsonResponse.result);
+        i++;
+      }
+
+      setMyNfts(allNFTs);
+
+      console.log("My NFTs💵: ", allNFTs);
     }
 
     try {
@@ -196,26 +216,6 @@ export const CreateLendProvider = ({ children }) => {
     } catch (error) {
       console.log("Moralis server re-initialzed");
     }
-
-    const allNFTs = [];
-
-    const chains = [EvmChain.MUMBAI, EvmChain.POLYGON];
-
-    let i = 0;
-
-    for (const chain of chains) {
-      const response = await Moralis.EvmApi.nft.getWalletNFTs({
-        address,
-        chain,
-      });
-
-      allNFTs.push(...response.jsonResponse.result);
-      i++;
-    }
-
-    setMyNfts(allNFTs);
-
-    console.log("My NFTs💵: ", allNFTs);
   };
 
   useEffect(() => {
