@@ -1,39 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## The GainX DAO
+Experience the lending ecosystem like never before with reputation based NFT collateralized loans.
 
-## Getting Started
+## About GainX and GainX DAO
+GainX is a protocol that allow Storage Providers in the Filecoin network take up loans against their **NFTs based on their reputation in the Filecoin Network**. GainX empowers the Storage Providers with flexible lending aggreements, better valuation for their NFT, derivatives that they can use to hedge your borrowings and many more exciting features.
 
-First, run the development server:
+GainX DAO is the DAO governing the GainX protocol with on-chain voting and selection. GainX DAO aspires to become the **hub of data economy** that revolves around NFT price, NFT trade volume, NFT popularity index, NFT influence index and many more and devise useful insights and analysis to **create data sets** for the community to use and discover.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Overall, GainX and GainX DAO solves the most common problems that exist with today's lending ecosystem with both innovative and traditional ways. It has the potential to elevate the data economy around NFTs and be a platform to provide curated valuabe data-sets and insights.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Highlights (Must Read)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+1. **Tableland:** We store all our deals in a SQL database powered by Tableland. Only the lender and the borrower can change the terms and conditions like the tenure with **access controls**. Tableland was very easy to use and implement giving developers a seamless experience. Furthermore, the features offered by Tableland leveled up our application and a number of updates awaits post hackathon where Tableland features will be of prefect use.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+2. **Axelar:** One of they key features and USP of our product is the ability to lend cross-chain which was powered by Axelar. For the time being we have demonstated cross-chain communication between Polygon Mumbai Testnet and Filecoin Hyperspace Testnet. But we plan to add more and more networks to the list and broaded our usability. 
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+3. **Neural network and RNN model:** One of the major issues in today's NFT collateralized loans is valuation of NFTs. Notable companies like **NFTfi offer only 40%** of the NFT current market value **without considering the possibility of future growth**. To solve this problem we have devised a neural network that helps us to calculate the valuation of an given NFT with the **reputation score and the tenure** of the borrowing. This helps find better valuation of the NFTs so that the Storage Providers get a fair price for their asset.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Important Links**:
 
-## Learn More
+1. GainX Demo: https://gainx.vercel.app/
+2. RNN Model Documentation: https://docs.google.com/document/d/1CiSa1y3GaZtLmxJ1fp_lHMVPGzPCeuzrBcakZGucqrI/edit
+3. GainX PPT: https://www.canva.com/design/DAFjWL-BI98/zJPhTGUjgunSSHm-OaN7FQ/edit?utm_content=DAFjWL-BI98&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+4. AxelarScan: https://testnet.axelarscan.io/gmp/0x04c87b4a3281771a71a9d6bfafda71c84b65267f187def7ed3c9b88ef9713ff8
+5. Filecoin Explorer: https://hyperspace.filfox.info/en/address/0x7619EcEc5bf84Da954a9A5d52caa4B8dB6313c84
 
-To learn more about Next.js, take a look at the following resources:
+## User Flow Diagrams
+<img width="1280" alt="image" src="https://github.com/LucidJoy/GainX/assets/67499748/85089350-30cc-4853-bc10-55beebce43ed">
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<img width="1280" alt="image" src="https://github.com/LucidJoy/GainX/assets/67499748/765030d8-e7fd-46ce-97fd-426fb26f82e7">
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Photo Gallery
 
-## Deploy on Vercel
+1. Landing Page
+<img width="1268" alt="image" src="https://github.com/LucidJoy/GainX/assets/67499748/933e62bc-30ad-4d94-a5dc-e0f88c796ccd">
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Loan Marketplace
+![image](https://github.com/LucidJoy/GainX/assets/67499748/c8e01013-4766-429e-b997-34b851e8b043)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# GainX
+3. NFT Details
+<img width="1268" alt="image" src="https://github.com/LucidJoy/GainX/assets/67499748/3e410b5f-ce39-44e7-88f0-43a57c9b3fd5">
+
+4. Dashboard Overview
+<img width="1266" alt="image" src="https://github.com/LucidJoy/GainX/assets/67499748/16e783c8-d32e-41a6-9234-81319e35e966">
+
+5. Insurance
+<img width="1266" alt="image" src="https://github.com/LucidJoy/GainX/assets/67499748/4e1218b8-c3d2-4ca0-98c6-760dd356d5d6">
+
