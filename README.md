@@ -17,7 +17,7 @@ Overall, GainX and GainX DAO solves the most common problems that exist with tod
 
 2. **Axelar:** One of they key features and USP of our product is the ability to lend cross-chain which was powered by Axelar. For the time being we have demonstated cross-chain communication between Polygon Mumbai Testnet and Filecoin Hyperspace Testnet. But we plan to add more and more networks to the list and broaded our usability. 
 
-3. **Neural network and RNN model:** One of the major issues in today's NFT collateralized loans is valuation of NFTs. Notable companies like **NFTfi offer only 40%** of the NFT current market value **without considering the possibility of future growth**. To solve this problem we have devised a neural network that helps us to calculate the valuation of an given NFT with the **reputation score and the tenure** of the borrowing. This helps find better valuation of the NFTs so that the Storage Providers get a fair price for their asset.
+3. **Deep Learning and Recurrent Neural Network model:** One of the major issues in today's NFT collateralized loans is valuation of NFTs. Notable companies like **NFTfi offer only 40%** of the NFT current market value **without considering the possibility of future growth**. To solve this problem we have devised a neural network model  that helps us to accurately predict the future value of an given NFT from time of the borrowing by capturing **underlying pattern and trend in realtime** . This helps find better valuation of the NFTs so that the Storage Providers get a fair price for their asset which in turn would minimise risk and maximise the profit.
 
 **Important Links**:
 
