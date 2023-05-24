@@ -1,3 +1,6 @@
+<img width="691" alt="image" src="https://github.com/LucidJoy/GainX/assets/67499748/6309c007-412f-4460-9af8-11a8384da022">
+
+
 ## The GainX DAO
 Experience the lending ecosystem like never before with reputation based NFT collateralized loans.
 
