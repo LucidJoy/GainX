@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.6.1",
     "@n8tb1t/use-scroll-position": "^2.0.3",
+    "@openzeppelin/contracts": "^4.9.1",
     "@tableland/sdk": "^4.2.2",
     "@wagmi/core": "^1.0.5",
     "body-scroll-lock": "^4.0.0-beta.0",
@@ -18,7 +20,9 @@
     "copy-to-clipboard": "^3.3.3",
     "ethers": "^5.7.2",
     "gsap": "^3.11.5",
+    "i": "^0.3.7",
     "next": "13.4.2",
+    "npm": "^9.7.1",
     "rc-tooltip": "^6.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -116,6 +116,12 @@ const Wallet = ({ className, children }) => {
               className={cn("button", styles.button)}
               onClick={() => setVisibleWithdraw(!visibleWithdraw)}
             >
+              Redeem Offer
+            </button>
+            <button
+              className={cn("button", styles.button)}
+              onClick={() => setVisibleWithdraw(!visibleWithdraw)}
+            >
               Buy Insurance
             </button>
             <button
